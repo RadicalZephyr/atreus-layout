@@ -1,0 +1,3 @@
+{:requires [atreus.app]
+ :init-fns [atreus.app/setup!]
+ :compiler-options {:asset-path "js/main.out"}}

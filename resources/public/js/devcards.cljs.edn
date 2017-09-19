@@ -1,0 +1,3 @@
+{:requires [atreus.devcards]
+ :init-fns [atreus.devcards/run-devcards!]
+ :compiler-options {:asset-path "js/devcards.out"}}
