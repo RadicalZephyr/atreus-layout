@@ -25,8 +25,21 @@
      [:div#app]]
     (page/include-js "/js/main.js")]))
 
+(defn svg-page []
+  (page/html5
+   [:head
+    [:meta {:charset "utf-8"}]
+    (page/include-css "/css/normalize.css"
+                      "/css/app.css")]
+   [:body
+    [:div
+     [:svg.label
+      [:use {:xlinkHref "/img/key-sprites.svg#label_w"}]]]]))
+
 (c/defroutes app-routes
   (c/GET "/" [] (main-page))
+
+  (c/GET "/svg" [] (svg-page))
 
   (c/GET "/devcards" []
     (page/html5
