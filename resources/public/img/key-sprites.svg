@@ -853,20 +853,6 @@
          d="m 798.2246,1332.0647 c 0.0611,0.3463 0.0838,0.6629 0.0683,0.9499 -0.009,0.2859 -0.0689,0.584 -0.17945,0.8943 -0.10414,0.3093 -0.25674,0.6436 -0.4578,1.003 -0.20108,0.3594 -0.46154,0.7755 -0.78142,1.2484 l -3.5941,5.2051 5.29912,-0.9343 -0.43413,-2.4621 1.12523,-0.1984 0.63252,3.5873 -8.15544,1.438 -0.20519,-1.1637 4.01054,-5.824 c 0.20596,-0.2941 0.3991,-0.586 0.57941,-0.8756 0.18672,-0.2907 0.34723,-0.5802 0.48154,-0.8683 0.13429,-0.2881 0.22843,-0.579 0.28241,-0.8728 0.054,-0.2938 0.0544,-0.5914 0.001,-0.8927 -0.13567,-0.7694 -0.49445,-1.3044 -1.07632,-1.6051 -0.57661,-0.3082 -1.23998,-0.3961 -1.99012,-0.2639 -1.0515,0.1854 -1.79508,0.6173 -2.23077,1.2957 -0.43569,0.6785 -0.5563,1.5691 -0.36186,2.6718 l -1.22139,0.2154 c -0.24985,-1.4169 -0.0671,-2.5928 0.5481,-3.5277 0.61523,-0.9348 1.63774,-1.5283 3.06751,-1.7804 0.53857,-0.095 1.05921,-0.1041 1.56192,-0.027 0.50799,0.069 0.97072,0.2189 1.38819,0.4494 0.42386,0.2293 0.77946,0.5401 1.06679,0.9324 0.28618,0.3859 0.4779,0.8545 0.57512,1.4058" />
     </g>
     <g
-       id="g2992">
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Anonymous Pro for Powerline';-inkscape-font-specification:'Anonymous Pro for Powerline';letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
-         x="327.37296"
-         y="1517.1528"
-         id="text4411"
-         transform="rotate(-10)"><tspan
-           id="tspan4413"
-           x="327.37296"
-           y="1517.1528"
-           style="font-size:20px;line-height:1.25">L0</tspan></text>
-    </g>
-    <g
        id="g2924">
       <path
          id="path3127"
@@ -1053,20 +1039,6 @@
        d="m 807.95674,1906.2261 -8.19744,1.4454 -0.18456,-1.0467 8.19744,-1.4454 0.18456,1.0467 m 0.68239,3.87 -8.19744,1.4454 -0.18146,-1.029 8.19744,-1.4455 0.18146,1.0291"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.29113388px;line-height:125%;font-family:'Anonymous Pro for Powerline';-inkscape-font-specification:'Anonymous Pro for Powerline';letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
        id="path3203" />
-    <g
-       id="g2996">
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Anonymous Pro for Powerline';-inkscape-font-specification:'Anonymous Pro for Powerline';letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
-         x="369.535"
-         y="1878.1666"
-         id="text3170"
-         transform="rotate(10)"><tspan
-           id="tspan3172"
-           x="369.535"
-           y="1878.1666"
-           style="font-size:20px;line-height:1.25">L2</tspan></text>
-    </g>
     <path
        d="m 221.66502,1699.5587 0.86555,0.1526 3.10183,4.454 -1.35757,0.9506 -1.83439,-2.6439 -2.06885,11.7331 -1.63494,-0.2883 2.06886,-11.7331 -2.64726,1.8536 -0.95057,-1.3575 4.45734,-3.1211"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'Anonymous Pro for Powerline';-inkscape-font-specification:'Anonymous Pro for Powerline';letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"
