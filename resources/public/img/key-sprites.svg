@@ -291,15 +291,15 @@
         <path
         d="m 23,21 -7.03106,1.2398 -0.15564,-0.8826 7.03106,-1.2399 0.15564,0.8827" />
     </symbol>
+    <symbol id="label_tick">
+        <path
+        d="m 19,11 0.29948,3.5953 -0.76949,0.1357 -0.93317,-3.4836 1.40318,-0.2474" />
+    </symbol>
 
   </defs>
   <g id="g5832"
      transform="translate(-20.122677,-742.79187)"
      style="display:inline">
-    <path
-       d="m 717.80056,960.85964 0.29948,3.5953 -0.76949,0.1357 -0.93317,-3.4836 1.40318,-0.2474"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:'Anonymous Pro for Powerline';-inkscape-font-specification:'Anonymous Pro for Powerline';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       id="path4276" />
     <g id="g2844">
       <path id="path4278"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:'Anonymous Pro for Powerline';-inkscape-font-specification:'Anonymous Pro for Powerline';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
