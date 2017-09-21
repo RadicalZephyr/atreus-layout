@@ -4,6 +4,7 @@
             [garden.core :as garden]
             [hiccup.page :as page]
             [ring.middleware.lint :as lint]
+            [ring.middleware.logger :as log]
             [ring.middleware.params :as params]
             [ring.middleware.reload :as reload]
             [ring.middleware.stacktrace :as stacktrace]))
@@ -40,6 +41,7 @@
 
 (def handler (-> app-routes
                  params/wrap-params
+                 log/wrap-with-logger
                  lint/wrap-lint
                  stacktrace/wrap-stacktrace
                  reload/wrap-reload))

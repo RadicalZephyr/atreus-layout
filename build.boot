@@ -11,11 +11,17 @@
                     [hiccup "1.0.5"]
                     [garden "1.3.2"]
 
+                    ;; Why do I need these?? devcards 0.2.3 is broken...
+                    [cljsjs/react "15.3.1-0"]
+                    [cljsjs/react-dom "15.3.1-1"]
+
                     ;; Boot dev environment
                     [ring "1.6.2"]
                     [compojure "1.6.0"]
                     [devcards "0.2.3" :exclusions
                      [org.clojure/clojurescript]]
+                    [radicalzephyr/ring.middleware.logger "0.6.0"
+                     :exclusions [[org.slf4j/slf4j-log4j12 :extension "jar"]]]
                     [adzerk/boot-cljs              "2.1.1"]
                     [adzerk/boot-cljs-repl         "0.3.3"]
                     [adzerk/boot-reload            "0.5.1"]
@@ -61,7 +67,6 @@
                        :compiler-options {:devcards true}}
                  reload {:asset-path "public"}
                  serve {:handler 'atreus.layout/handler
-                        :httpkit true
                         :port 8080})
   identity)
 
