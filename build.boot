@@ -83,9 +83,9 @@
   "Compile clojurescript->js and garden->css"
   []
   (comp (notify :visual true)
-        (cljs)
         (garden :styles-var 'atreus.styles/screen
-                :output-to "public/css/app.css")))
+                :output-to "public/css/app.css")
+        (cljs)))
 
 (deftask run
   "Run a local server with automatic code rebuilding"
