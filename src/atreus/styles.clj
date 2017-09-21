@@ -9,5 +9,6 @@
   [:body {:font-family "Helvetica"}]
   [:svg.label {:width "40px" :height "40px"}]
   [:#com-rigsomelight-devcards-main
-   [:svg.label {:border "solid black 1px"}]]
+   [:svg.label {:border "solid black 1px"
+                :margin "5px"}]]
   [:.test {:background-color "tomato"}])
