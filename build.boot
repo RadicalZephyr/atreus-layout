@@ -5,6 +5,7 @@
 
                     [re-frame "0.9.4" :exclusions
                      [org.clojure/clojurescript]]
+                    [reagent "0.7.0"]
 
                     ;; Dev/Release build code-gen
                     [hiccup "1.0.5"]
