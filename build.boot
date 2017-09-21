@@ -82,7 +82,7 @@
 (deftask build
   "Compile clojurescript->js and garden->css"
   []
-  (comp (notify :visual true)
+  (comp (notify :audible true)
         (garden :styles-var 'atreus.styles/screen
                 :output-to "public/css/app.css")
         (cljs)))
