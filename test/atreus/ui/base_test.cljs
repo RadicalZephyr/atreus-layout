@@ -5,7 +5,7 @@
             [reagent.core]))
 
 (defcard-rg key-labels
-  "All key labels are made with AVG sprites, and a little bit of magic."
+  "All key labels are made with SVG sprites, and a little bit of magic."
 
   [:div
    "Normal keyboard"
