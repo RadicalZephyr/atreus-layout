@@ -6,13 +6,11 @@
     (2 3 4) "14px"
     "12px"))
 
-(defn- coords-for [name]
-  {:x (str (- 12 (* 2 (count name))))
-   :y "24"})
 
 (defn- raw-label [name font-size coords]
   [:svg.label
-   [:text {:style {:font-size font-size
+   [:text {:text-anchor "middle"
+           :style {:font-size font-size
                    :line-height "125%"
                    :font-family "Anonymous Pro"
                    :letter-spacing "0px"
@@ -37,13 +35,13 @@
       :else :default)))
 
 (defmethod -label :default [name]
-  (raw-label name (font-size-for name) (coords-for name)))
+  (raw-label name (font-size-for name) {:x "20" :y "24"}))
 
 (defmethod -label :symbol-key [name]
-  (raw-label (str/capitalize name) "40px" {:x "9" :y "31"}))
+  (raw-label (str/capitalize name) "40px" {:x "20" :y "30"}))
 
 (defmethod -label :f-key [name]
-  (raw-label name "18px" {:x "6" :y "26"}))
+  (raw-label name "18px" {:x "20" :y "26"}))
 
 (defmethod -label :arrow-key [name]
   [:svg.label
