@@ -22,8 +22,7 @@
                    :fill "#000000"
                    :fill-opacity "1"
                    :stroke "none"}}
-    [:tspan coords
-     (str/capitalize name)]]])
+    [:tspan coords name]]])
 
 (defmulti -label
   (fn [name]
@@ -32,7 +31,7 @@
       :else :default)))
 
 (defmethod -label :default [name]
-  (raw-label name (font-size-for name) (coords-for name)))
+  (raw-label (str/capitalize name) (font-size-for name) (coords-for name)))
 
 (defmethod -label :f-key [name]
   (raw-label name "18px" {:x "6" :y "26"}))
