@@ -46,9 +46,7 @@
  '[adzerk.boot-reload    :refer [reload]]
  '[pandeiro.boot-http    :refer [serve]]
  '[crisptrutski.boot-cljs-test :refer [test-cljs]]
- '[org.martinklepsch.boot-garden :refer [garden]]
- '[atreus.task.index :refer [write-index]]
- '[atreus.task.time :refer [now]])
+ '[org.martinklepsch.boot-garden :refer [garden]])
 
 ;; Pipeline configuration tasks
 
@@ -102,11 +100,13 @@
 (deftask release
   "Create a time-stamped zip file for deploying"
   []
+  (require 'atreus.task.index
+           'atreus.task.time)
   (comp (production)
-        (write-index)
+        ((resolve 'atreus.task.index/write-index))
         (build)
         (sift :include #{#"\.out" #"\.cljs.edn$"} :invert true)
-        (zip :file (str "atreus-layout-" (now) ".zip"))
+        (zip :file (str "atreus-layout-" ((resolve 'atreus.task.time/now)) ".zip"))
         (target :dir #{"target"})))
 
 (deftask dev
