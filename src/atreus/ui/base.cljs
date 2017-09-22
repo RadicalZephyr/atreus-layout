@@ -3,15 +3,12 @@
 
 (defn- font-size-for [name]
   (case (count name)
-    1 "40px"
     (2 3 4) "14px"
     "12px"))
 
 (defn- coords-for [name]
-  (cond
-    (= 1 (count name)) {:x "9" :y "31"}
-    :else {:x (str (- 12 (* 2 (count name))))
-           :y "24"}))
+  {:x (str (- 12 (* 2 (count name))))
+   :y "24"})
 
 (defn- raw-label [name font-size coords]
   [:svg.label
@@ -30,12 +27,16 @@
 (defmulti -label
   (fn [name]
     (cond
+      (= 1 (count name)) :symbol-key
       (arrow-key? name) :arrow-key
       (re-matches #"[fF]\d+" name) :f-key
       :else :default)))
 
 (defmethod -label :default [name]
-  (raw-label (str/capitalize name) (font-size-for name) (coords-for name)))
+  (raw-label name (font-size-for name) (coords-for name)))
+
+(defmethod -label :symbol-key [name]
+  (raw-label (str/capitalize name) "40px" {:x "9" :y "31"}))
 
 (defmethod -label :f-key [name]
   (raw-label name "18px" {:x "6" :y "26"}))
