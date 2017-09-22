@@ -10,6 +10,7 @@
   [:div
    "Normal keyboard"
    [:div
+    [sut/label "`"]
     [sut/label "1"]
     [sut/label "2"]
     [sut/label "3"]
@@ -21,9 +22,11 @@
     [sut/label "9"]
     [sut/label "0"]
     [sut/label "-"]
-    [sut/label "="]]
+    [sut/label "="]
+    [sut/label "bksp"]]
 
    [:div
+    [sut/label "tab"]
     [sut/label "q"]
     [sut/label "w"]
     [sut/label "e"]
@@ -49,9 +52,11 @@
     [sut/label "k"]
     [sut/label "l"]
     [sut/label ";"]
-    [sut/label "'"]]
+    [sut/label "'"]
+    [sut/label "enter"]]
 
    [:div
+    [sut/label "lshift"]
     [sut/label "z"]
     [sut/label "x"]
     [sut/label "c"]
@@ -61,10 +66,21 @@
     [sut/label "m"]
     [sut/label ","]
     [sut/label "."]
-    [sut/label "/"]]
+    [sut/label "/"]
+    [sut/label "rshift"]]
+
+   [:div
+    [sut/label "lctrl"]
+    [sut/label "super"]
+    [sut/label "lalt"]
+    [sut/label "spc"]
+    [sut/label "ralt"]
+    [sut/label "menu"]
+    [sut/label "rctrl"]]
 
    "Shifted Keyboard"
    [:div
+    [sut/label "~"]
     [sut/label "!"]
     [sut/label "@"]
     [sut/label "#"]
@@ -76,9 +92,11 @@
     [sut/label "("]
     [sut/label ")"]
     [sut/label "_"]
-    [sut/label "+"]]
+    [sut/label "+"]
+    [sut/label "bksp"]]
 
    [:div
+    [sut/label "tab"]
     [sut/label "q"]
     [sut/label "w"]
     [sut/label "e"]
@@ -94,6 +112,7 @@
     [sut/label "|"]]
 
    [:div
+    [sut/label "capslock"]
     [sut/label "a"]
     [sut/label "s"]
     [sut/label "d"]
@@ -107,6 +126,7 @@
     [sut/label "\""]]
 
    [:div
+    [sut/label "lshift"]
     [sut/label "z"]
     [sut/label "x"]
     [sut/label "c"]
@@ -116,4 +136,39 @@
     [sut/label "m"]
     [sut/label "<"]
     [sut/label ">"]
-    [sut/label "?"]]])
+    [sut/label "?"]
+    [sut/label "rshift"]]
+
+   "Arrow Keys"
+   [:div
+    [sut/label "left"]
+    [sut/label "right"]
+    [sut/label "up"]
+    [sut/label "down"]]
+
+   "Function Keys"
+   [:div
+    [sut/label "F1"]
+    [sut/label "F2"]
+    [sut/label "F3"]
+    [sut/label "F4"]
+    [sut/label "F5"]
+    [sut/label "F6"]
+    [sut/label "F7"]
+    [sut/label "F8"]
+    [sut/label "F9"]
+    [sut/label "F10"]
+    [sut/label "F11"]
+    [sut/label "F12"]]
+
+   "Special Keys"
+   [:div
+    [sut/label "home"]
+    [sut/label "end"]
+    [sut/label "pgup"]
+    [sut/label "pgdown"]
+    [sut/label "ins"]
+    [sut/label "del"]
+    [sut/label "pause"]
+    [sut/label "break"]
+    [sut/label "prtscr"]]])
