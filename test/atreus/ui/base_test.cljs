@@ -179,3 +179,17 @@
     [sut/label "a" :rotation/right]
     [sut/label "up" :rotation/left]
     [sut/label "up" :rotation/right]]])
+
+(defcard-rg atreus-layout
+  "The layout is done with an SVG and image map."
+  (fn [data _]
+    [:div#layout-root {:style {:border "1px solid black"}
+                       :onClick #(let [root-el (.getElementById js/document "layout-root")
+                                       root-rect (.getBoundingClientRect root-el)]
+                                     (swap! data assoc
+                                            :x (- (.-clientX %) (.-left root-rect))
+                                            :y (- (.-clientY %) (.-top root-rect))))}
+     [sut/layout-background (fn [])]])
+  {}
+  {:inspect-data true
+   :history true})

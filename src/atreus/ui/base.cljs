@@ -63,3 +63,10 @@
    (-label name :rotation/none))
   ([name rotation]
    (-label name rotation)))
+
+(defn layout-background [mk-click-handler]
+  [:div
+   [:map {:name "layout"}
+    ]
+   [:img {:useMap "#layout"
+          :src "/img/layout-blank.svg"}]])
