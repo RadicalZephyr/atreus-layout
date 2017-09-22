@@ -7,9 +7,19 @@
     "12px"))
 
 
-(defn- raw-label [name font-size coords]
+(def ^:private
+  transforms
+  #:rotation
+  {:left "rotate(-9.99999 20 20)"
+   :right "rotate(9.99999 20 20)"})
+
+(defn- transform-for [rotation]
+  (get transforms rotation ""))
+
+(defn- raw-label [name rotation font-size coords]
   [:svg.label
-   [:text {:text-anchor "middle"
+   [:text {:transform (transform-for rotation)
+           :text-anchor "middle"
            :style {:font-size font-size
                    :line-height "125%"
                    :font-family "Anonymous Pro"
@@ -27,25 +37,29 @@
   (contains? arrow-names name))
 
 (defmulti -label
-  (fn [name]
+  (fn [name _rotation]
     (cond
       (= 1 (count name)) :symbol-key
       (arrow-key? name) :arrow-key
       (re-matches #"[fF]\d+" name) :f-key
       :else :default)))
 
-(defmethod -label :default [name]
-  (raw-label name (font-size-for name) {:x "20" :y "24"}))
+(defmethod -label :default [name rotation]
+  (raw-label name rotation (font-size-for name) {:x "20" :y "24"}))
 
-(defmethod -label :symbol-key [name]
-  (raw-label (str/capitalize name) "40px" {:x "20" :y "30"}))
+(defmethod -label :symbol-key [name rotation]
+  (raw-label (str/capitalize name) rotation "40px" {:x "20" :y "30"}))
 
-(defmethod -label :f-key [name]
-  (raw-label name "18px" {:x "20" :y "26"}))
+(defmethod -label :f-key [name rotation]
+  (raw-label name rotation "18px" {:x "20" :y "26"}))
 
-(defmethod -label :arrow-key [name]
+(defmethod -label :arrow-key [name rotation]
   [:svg.label
-   [:use {:xlinkHref (str "/img/key-sprites.svg#label_" name)}]])
+   [:use {:transform (transform-for rotation)
+          :xlinkHref (str "/img/key-sprites.svg#label_" name)}]])
 
-(defn label [name]
-  (-label name))
+(defn label
+  ([name]
+   (-label name :rotation/none))
+  ([name rotation]
+   (-label name rotation)))

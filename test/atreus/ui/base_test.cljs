@@ -171,4 +171,11 @@
     [sut/label "del"]
     [sut/label "pause"]
     [sut/label "break"]
-    [sut/label "prtscr"]]])
+    [sut/label "prtscr"]]
+
+   "Rotated Symbols"
+   [:div
+    [sut/label "a" :rotation/left]
+    [sut/label "a" :rotation/right]
+    [sut/label "up" :rotation/left]
+    [sut/label "up" :rotation/right]]])
