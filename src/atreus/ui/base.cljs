@@ -24,9 +24,13 @@
                    :stroke "none"}}
     [:tspan coords name]]])
 
+(defn- arrow-key? [name]
+  (contains? #{"left" "right" "up" "down"} name))
+
 (defmulti -label
   (fn [name]
     (cond
+      (arrow-key? name) :arrow-key
       (re-matches #"[fF]\d+" name) :f-key
       :else :default)))
 
@@ -35,6 +39,10 @@
 
 (defmethod -label :f-key [name]
   (raw-label name "18px" {:x "6" :y "26"}))
+
+(defmethod -label :arrow-key [name]
+  [:svg.label
+   [:use {:xlinkHref (str "/img/key-sprites.svg#label_" name)}]])
 
 (defn label [name]
   (-label name))
