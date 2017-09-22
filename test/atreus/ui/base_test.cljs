@@ -148,18 +148,18 @@
 
    "Function Keys"
    [:div
-    [sut/label "F1"]
-    [sut/label "F2"]
-    [sut/label "F3"]
-    [sut/label "F4"]
-    [sut/label "F5"]
-    [sut/label "F6"]
-    [sut/label "F7"]
-    [sut/label "F8"]
-    [sut/label "F9"]
-    [sut/label "F10"]
-    [sut/label "F11"]
-    [sut/label "F12"]]
+    [sut/label "f1"]
+    [sut/label "f2"]
+    [sut/label "f3"]
+    [sut/label "f4"]
+    [sut/label "f5"]
+    [sut/label "f6"]
+    [sut/label "f7"]
+    [sut/label "f8"]
+    [sut/label "f9"]
+    [sut/label "f10"]
+    [sut/label "f11"]
+    [sut/label "f12"]]
 
    "Special Keys"
    [:div

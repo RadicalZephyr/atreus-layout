@@ -27,7 +27,7 @@
 (defmulti -label
   (fn [name]
     (cond
-      (str/starts-with? name "F") :f-key
+      (re-matches #"[fF]\d+" name) :f-key
       :else :default)))
 
 (defmethod -label :default [name]
