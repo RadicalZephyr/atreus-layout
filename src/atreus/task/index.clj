@@ -13,7 +13,7 @@
         (io/make-parents index-file)
         (util/info "Writing index.html...\n")
         (pod/with-eval-in pod
-          (require 'atreus.core)
+          (require 'atreus.layout)
           (spit ~(str index-file) (atreus.layout/main-page)))
         (pod/destroy-pod pod)
         (-> fileset
