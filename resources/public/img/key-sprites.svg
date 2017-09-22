@@ -295,6 +295,13 @@
         <path
         d="m 19,11 0.29948,3.5953 -0.76949,0.1357 -0.93317,-3.4836 1.40318,-0.2474" />
     </symbol>
+    <symbol id="label_enter">
+      <text
+         xml:space="preserve"
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'Anonymous Pro for Powerline';-inkscape-font-specification:'Anonymous Pro for Powerline';letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
+           x="1.5"
+           y="24">Enter</tspan></text>
+    </symbol>
 
   </defs>
   <g id="g5832"
