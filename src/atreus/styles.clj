@@ -1,6 +1,6 @@
 (ns atreus.styles
   (:require [garden.def :refer [defstyles]]
-            [garden.stylesheet :refer [rule]]
+            [garden.stylesheet :as s]
             [garden.units :as u]))
 
 (defstyles screen
@@ -11,4 +11,7 @@
   [:#com-rigsomelight-devcards-main
    [:svg.label {:border "solid black 1px"
                 :margin "5px"}]]
-  [:.test {:background-color "tomato"}])
+  [:.test {:background-color "tomato"}]
+  (s/at-font-face
+   {:font-family "Anonymous Pro"
+    :src "url(\"/fonts/anonymous-pro.ttf\")"}))
