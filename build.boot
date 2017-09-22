@@ -7,6 +7,8 @@
                      [org.clojure/clojurescript]]
                     [reagent "0.7.0"]
 
+                    [wrest-xml "0.1.1"]
+
                     ;; Dev/Release build code-gen
                     [hiccup "1.0.5"]
                     [garden "1.3.2"]
