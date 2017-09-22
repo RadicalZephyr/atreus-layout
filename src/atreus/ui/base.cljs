@@ -21,8 +21,12 @@
                    :stroke "none"}}
     [:tspan coords name]]])
 
+(def ^:private
+  arrow-names
+  #{"left" "right" "up" "down"})
+
 (defn- arrow-key? [name]
-  (contains? #{"left" "right" "up" "down"} name))
+  (contains? arrow-names name))
 
 (defmulti -label
   (fn [name]
