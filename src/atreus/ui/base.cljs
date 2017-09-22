@@ -1,34 +1,41 @@
 (ns atreus.ui.base
   (:require [clojure.string :as str]))
 
-(def char-names
-  {"<" "lt"
-   ">" "gt"
-   "'" "tick"
-   "\"" "quote"
-   "&" "amp"})
-
 (defn- font-size-for [name]
   (case (count name)
     1 "40px"
-    2 "26px"
-    "15px"))
+    (2 3 4) "14px"
+    "12px"))
 
 (defn- coords-for [name]
-  (case (count name)
-    1 {:x "9" :y "30"}
-    2 {:x "8" :y "30"}
-    3 {:x "8" :y "24"}
-    {:x "9" :y "30"}))
+  (cond
+    (= 1 (count name)) {:x "9" :y "31"}
+    :else {:x (str (- 12 (* 2 (count name))))
+           :y "24"}))
 
-(defn label [name]
+(defn- raw-label [name font-size coords]
   [:svg.label
-   [:text {:style {:font-size (font-size-for name)
+   [:text {:style {:font-size font-size
                    :line-height "125%"
                    :font-family "Anonymous Pro"
                    :letter-spacing "0px"
                    :fill "#000000"
                    :fill-opacity "1"
                    :stroke "none"}}
-    [:tspan (coords-for name)
+    [:tspan coords
      (str/capitalize name)]]])
+
+(defmulti -label
+  (fn [name]
+    (cond
+      (str/starts-with? name "F") :f-key
+      :else :default)))
+
+(defmethod -label :default [name]
+  (raw-label name (font-size-for name) (coords-for name)))
+
+(defmethod -label :f-key [name]
+  (raw-label name "18px" {:x "6" :y "26"}))
+
+(defn label [name]
+  (-label name))

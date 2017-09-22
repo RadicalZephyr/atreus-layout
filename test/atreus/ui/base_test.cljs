@@ -166,7 +166,7 @@
     [sut/label "home"]
     [sut/label "end"]
     [sut/label "pgup"]
-    [sut/label "pgdown"]
+    [sut/label "pgdn"]
     [sut/label "ins"]
     [sut/label "del"]
     [sut/label "pause"]
