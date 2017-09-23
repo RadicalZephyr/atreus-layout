@@ -66,9 +66,9 @@
 
 (def ^:private
   deltas
-  {:square [[0 0] [55  10] [45 58] [-10 48]]
-   :row [[0 0] [70 0] [139 -6] [203 23] [265 56]]
-   :stack [[0 0] [-11 66] [-23 132] [-34 198]]})
+  {:square [[0 0] [56 10] [47 61] [-9 51.5]]
+   :row [[0 0] [68 0.5] [138 -5.25] [201 24] [264 57]]
+   :stack [[0 0] [-12 66.25] [-23.75 132.75] [-35.5 199]]})
 
 (def ^:private
   op-for-side
@@ -93,6 +93,7 @@
   [:area {:onClick (fn [e]
                      (.preventDefault e)
                      (.log js/console index))
+          :tabIndex index
           :shape "poly"
           :coords (coords x-y side (deltas :square))}])
 
@@ -109,13 +110,11 @@
 (defn layout-background [mk-click-handler]
   [:div
    [:map {:name "layout"}
-    [stack mk-click-handler [46,9] :left]
+    [stack mk-click-handler [46,7] :left]
 
-    [area mk-click-handler 35 [351,243] :left]
-    [area mk-click-handler 36 [473,243] :right]
+    [area mk-click-handler 35 [349.5,240.25] :left]
+    [area mk-click-handler 36 [473.5,240] :right]
 
-    [stack mk-click-handler [778,8] :right]
-    #_[area [520,42] :right]
-    #_[area [655,19] :right]]
+    [stack mk-click-handler [777,6] :right]]
    [:img {:useMap "#layout"
           :src "/img/layout-blank.svg"}]])
