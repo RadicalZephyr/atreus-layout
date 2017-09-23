@@ -96,13 +96,15 @@
           :shape "poly"
           :coords (coords x-y side (deltas :square))}])
 
-(defn- row [mk-click-handler x-y side]
+(defn- row [mk-click-handler row-index x-y side]
   (into [:div]
-        (map #(area mk-click-handler 0 % side) (coords x-y side (deltas :row)))))
+        (map-indexed #(area mk-click-handler (index side row-index %1) %2 side)
+                     (coords x-y side (deltas :row)))))
 
 (defn- stack [mk-click-handler x-y side]
   (into [:div]
-        (map #(row mk-click-handler % side) (coords x-y side (deltas :stack)))))
+        (map-indexed #(row mk-click-handler %1 %2 side)
+                     (coords x-y side (deltas :stack)))))
 
 (defn layout-background [mk-click-handler]
   [:div
