@@ -210,7 +210,8 @@
      [sut/layout-background (fn [index side]
                               (swap! data assoc
                                      :index index
-                                     :side side))]])
-  {}
+                                     :side side))
+      (:labels @data)]])
+  {:labels (vec (repeat 42 nil))}
   {:inspect-data true
    :history true})

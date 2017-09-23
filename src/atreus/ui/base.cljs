@@ -76,10 +76,10 @@
 
 (defn- coords [[x-root y-root] side deltas]
   (let [op (op-for-side side)]
-   (mapv (fn [[x y]]
-           [(op x-root x)
-            (+ y-root y)])
-         deltas)))
+    (mapv (fn [[x y]]
+            [(op x-root x)
+             (+ y-root y)])
+          deltas)))
 
 (defn index [side row-index col-index]
   (case side
@@ -94,10 +94,13 @@
            (- x 48)
            (- x 2))})
 
-(defn- area [click-handler index x-y side]
+(defn- area [click-handler labels index x-y side]
   [:div
-   [:span.layout-label {:style (styles-for x-y side)}
-    [label "+" side]]
+   (when (and (seq labels)
+              (> (count labels) index)
+              (nth labels index))
+     [:span.layout-label {:style (styles-for x-y side)}
+      [label (nth labels index) side]])
    [:area {:onClick (fn [e]
                       (.preventDefault e)
                       (click-handler index side))
@@ -105,24 +108,24 @@
            :shape "poly"
            :coords (coords x-y side (deltas :square))}]])
 
-(defn- row [click-handler row-index x-y side]
+(defn- row [click-handler labels row-index x-y side]
   (into [:div]
-        (map-indexed #(area click-handler (index side row-index %1) %2 side)
+        (map-indexed #(area click-handler labels (index side row-index %1) %2 side)
                      (coords x-y side (deltas :row)))))
 
-(defn- stack [click-handler x-y side]
+(defn- stack [click-handler labels x-y side]
   (into [:div]
-        (map-indexed #(row click-handler %1 %2 side)
+        (map-indexed #(row click-handler labels %1 %2 side)
                      (coords x-y side (deltas :stack)))))
 
-(defn layout-background [click-handler]
+(defn layout-background [click-handler labels]
   [:div#layout-root
    [:map {:name "layout"}
-    [stack click-handler [46,7] :left]
+    [stack click-handler labels [46,7] :left]
 
-    [area click-handler 35 [349.5,240.25] :left]
-    [area click-handler 36 [473.5,240] :right]
+    [area click-handler labels 35 [349.5,240.25] :left]
+    [area click-handler labels 36 [473.5,240] :right]
 
-    [stack click-handler [777,6] :right]]
+    [stack click-handler labels [777,6] :right]]
    [:img {:useMap "#layout"
           :src "/img/layout-blank.svg"}]])
