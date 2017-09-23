@@ -90,7 +90,10 @@
               (if (= 3 row-index) -2 0))))
 
 (defn- area [x-y side]
-  [:area {:shape "poly"
+  [:area {:onClick (fn [e]
+                     (.preventDefault e)
+                     (.log js/console (.-target e)))
+          :shape "poly"
           :coords (coords x-y side (deltas :square))}])
 
 (defn- row [x-y side]
