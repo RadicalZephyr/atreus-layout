@@ -64,9 +64,38 @@
   ([name rotation]
    (-label name rotation)))
 
+(def ^:private
+  deltas
+  {:left {:square [[0 0] [55  10] [45 58] [-10 48]]
+          :row [[0 0] [70 0] [139 -6] [203 23] [265 56]]
+          :stack [[0 0] [-11 66] [-23 132] [-34 198]]}
+   :right {:square [[0 0] [55 -10] [65 38] [ 10 48]]}})
+
+(defn- coords [x-y-root deltas]
+  (mapv #(map + x-y-root %) deltas))
+
+(defn- area [x-y side]
+  [:area {:shape "poly"
+          :coords (coords x-y (get-in deltas [side :square]))}])
+
+(defn- row [x-y side]
+  (into [:div]
+        (map #(area % side) (coords x-y (get-in deltas [side :row])))))
+
+(defn- stack [x-y side]
+  (into [:div]
+        (map #(row % side) (coords x-y (get-in deltas [side :stack])))))
+
 (defn layout-background [mk-click-handler]
   [:div
    [:map {:name "layout"}
-    ]
+    [stack [46,9] :left]
+
+    [area [351,243] :left]
+    [area [421,253] :right]
+
+    #_[stack [778,8] :right]
+    [area [520,42] :right]
+    [area [655,19] :right]]
    [:img {:useMap "#layout"
           :src "/img/layout-blank.svg"}]])
