@@ -82,6 +82,13 @@
             (+ y-root y)])
          deltas)))
 
+(defn index [side row-index col-index]
+  (case side
+    :left (+ col-index (* 10 row-index))
+    :right (- (* 10 (inc row-index))
+              (inc col-index)
+              (if (= 3 row-index) -2 0))))
+
 (defn- area [x-y side]
   [:area {:shape "poly"
           :coords (coords x-y side (deltas :square))}])
