@@ -7,7 +7,10 @@
   [:* {:box-sizing "border-box"}]
 
   [:body {:font-family "Helvetica"}]
-  [:svg.label {:width "40px" :height "40px"}]
+  [:#layout-root {:position "relative"}]
+  [:.layout-label {:position "absolute"}]
+  [:svg.label {:width "40px"
+               :height "40px"}]
   [:#com-rigsomelight-devcards-main
    [:svg.label {:border "solid black 1px"
                 :margin "5px"}]]

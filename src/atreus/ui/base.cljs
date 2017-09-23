@@ -9,9 +9,8 @@
 
 (def ^:private
   transforms
-  #:rotation
-  {:left "rotate(-9.99999 20 20)"
-   :right "rotate(9.99999 20 20)"})
+  {:left "rotate(9.99999 20 20)"
+   :right "rotate(-9.99999 20 20)"})
 
 (defn- transform-for [rotation]
   (get transforms rotation ""))
@@ -89,13 +88,22 @@
               (inc col-index)
               (if (= 3 row-index) -2 0))))
 
+(defn- styles-for [[x y] side]
+  {:top (+ 6 y)
+   :left (if (= side :right)
+           (- x 48)
+           (- x 2))})
+
 (defn- area [click-handler index x-y side]
-  [:area {:onClick (fn [e]
-                     (.preventDefault e)
-                     (click-handler index side))
-          :tabIndex index
-          :shape "poly"
-          :coords (coords x-y side (deltas :square))}])
+  [:div
+   [:span.layout-label {:style (styles-for x-y side)}
+    [label "+" side]]
+   [:area {:onClick (fn [e]
+                      (.preventDefault e)
+                      (click-handler index side))
+           :tabIndex index
+           :shape "poly"
+           :coords (coords x-y side (deltas :square))}]])
 
 (defn- row [click-handler row-index x-y side]
   (into [:div]
@@ -108,7 +116,7 @@
                      (coords x-y side (deltas :stack)))))
 
 (defn layout-background [click-handler]
-  [:div
+  [:div#layout-root
    [:map {:name "layout"}
     [stack click-handler [46,7] :left]
 

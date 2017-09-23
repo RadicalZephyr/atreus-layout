@@ -175,10 +175,10 @@
 
    "Rotated Symbols"
    [:div
-    [sut/label "a" :rotation/left]
-    [sut/label "a" :rotation/right]
-    [sut/label "up" :rotation/left]
-    [sut/label "up" :rotation/right]]])
+    [sut/label "a"  :left]
+    [sut/label "a"  :right]
+    [sut/label "up" :left]
+    [sut/label "up" :right]]])
 
 (deftest test-index
   (testing "left side indices"
