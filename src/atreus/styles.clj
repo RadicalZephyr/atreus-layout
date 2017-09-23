@@ -7,8 +7,10 @@
   [:* {:box-sizing "border-box"}]
 
   [:body {:font-family "Helvetica"}]
-  [:#layout-root {:position "relative"}]
-  [:.layout-label {:position "absolute"}]
+  [:#layout-root {:position "relative"
+                  :z-index 1}]
+  [:.layout-label {:position "absolute"
+                   :z-index -1}]
   [:svg.label {:width "40px"
                :height "40px"}]
   [:#com-rigsomelight-devcards-main
