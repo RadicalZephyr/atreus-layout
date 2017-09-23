@@ -207,7 +207,10 @@
                                      (swap! data assoc
                                             :x (- (.-clientX %) (.-left root-rect))
                                             :y (- (.-clientY %) (.-top root-rect))))}
-     [sut/layout-background (fn [])]])
+     [sut/layout-background (fn [index side]
+                              (swap! data assoc
+                                     :index index
+                                     :side side))]])
   {}
   {:inspect-data true
    :history true})

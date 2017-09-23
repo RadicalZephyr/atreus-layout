@@ -89,32 +89,32 @@
               (inc col-index)
               (if (= 3 row-index) -2 0))))
 
-(defn- area [mk-click-handler index x-y side]
+(defn- area [click-handler index x-y side]
   [:area {:onClick (fn [e]
                      (.preventDefault e)
-                     (.log js/console index))
+                     (click-handler index side))
           :tabIndex index
           :shape "poly"
           :coords (coords x-y side (deltas :square))}])
 
-(defn- row [mk-click-handler row-index x-y side]
+(defn- row [click-handler row-index x-y side]
   (into [:div]
-        (map-indexed #(area mk-click-handler (index side row-index %1) %2 side)
+        (map-indexed #(area click-handler (index side row-index %1) %2 side)
                      (coords x-y side (deltas :row)))))
 
-(defn- stack [mk-click-handler x-y side]
+(defn- stack [click-handler x-y side]
   (into [:div]
-        (map-indexed #(row mk-click-handler %1 %2 side)
+        (map-indexed #(row click-handler %1 %2 side)
                      (coords x-y side (deltas :stack)))))
 
-(defn layout-background [mk-click-handler]
+(defn layout-background [click-handler]
   [:div
    [:map {:name "layout"}
-    [stack mk-click-handler [46,7] :left]
+    [stack click-handler [46,7] :left]
 
-    [area mk-click-handler 35 [349.5,240.25] :left]
-    [area mk-click-handler 36 [473.5,240] :right]
+    [area click-handler 35 [349.5,240.25] :left]
+    [area click-handler 36 [473.5,240] :right]
 
-    [stack mk-click-handler [777,6] :right]]
+    [stack click-handler [777,6] :right]]
    [:img {:useMap "#layout"
           :src "/img/layout-blank.svg"}]])
