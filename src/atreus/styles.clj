@@ -9,6 +9,7 @@
   [:body {:font-family "Helvetica"}]
   [:#layout-root {:position "relative"
                   :z-index 1}]
+  [:area {:cursor "pointer"}]
   [:.layout-label {:position "absolute"
                    :z-index -1}]
   [:svg.label {:width "40px"
