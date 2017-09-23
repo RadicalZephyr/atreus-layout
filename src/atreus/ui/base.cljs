@@ -89,30 +89,30 @@
               (inc col-index)
               (if (= 3 row-index) -2 0))))
 
-(defn- area [x-y side]
+(defn- area [mk-click-handler x-y side]
   [:area {:onClick (fn [e]
                      (.preventDefault e)
                      (.log js/console (.-target e)))
           :shape "poly"
           :coords (coords x-y side (deltas :square))}])
 
-(defn- row [x-y side]
+(defn- row [mk-click-handler x-y side]
   (into [:div]
-        (map #(area % side) (coords x-y side (deltas :row)))))
+        (map #(area mk-click-handler % side) (coords x-y side (deltas :row)))))
 
-(defn- stack [x-y side]
+(defn- stack [mk-click-handler x-y side]
   (into [:div]
-        (map #(row % side) (coords x-y side (deltas :stack)))))
+        (map #(row mk-click-handler % side) (coords x-y side (deltas :stack)))))
 
 (defn layout-background [mk-click-handler]
   [:div
    [:map {:name "layout"}
-    [stack [46,9] :left]
+    [stack mk-click-handler [46,9] :left]
 
-    [area [351,243] :left]
-    [area [473,243] :right]
+    [area mk-click-handler [351,243] :left]
+    [area mk-click-handler [473,243] :right]
 
-    [stack [778,8] :right]
+    [stack mk-click-handler [778,8] :right]
     #_[area [520,42] :right]
     #_[area [655,19] :right]]
    [:img {:useMap "#layout"
