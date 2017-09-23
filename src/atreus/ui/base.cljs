@@ -66,25 +66,33 @@
 
 (def ^:private
   deltas
-  {:left {:square [[0 0] [55  10] [45 58] [-10 48]]
-          :row [[0 0] [70 0] [139 -6] [203 23] [265 56]]
-          :stack [[0 0] [-11 66] [-23 132] [-34 198]]}
-   :right {:square [[0 0] [55 -10] [65 38] [ 10 48]]}})
+  {:square [[0 0] [55  10] [45 58] [-10 48]]
+   :row [[0 0] [70 0] [139 -6] [203 23] [265 56]]
+   :stack [[0 0] [-11 66] [-23 132] [-34 198]]})
 
-(defn- coords [x-y-root deltas]
-  (mapv #(map + x-y-root %) deltas))
+(def ^:private
+  op-for-side
+  {:left +
+   :right -})
+
+(defn- coords [[x-root y-root] side deltas]
+  (let [op (op-for-side side)]
+   (mapv (fn [[x y]]
+           [(op x-root x)
+            (+ y-root y)])
+         deltas)))
 
 (defn- area [x-y side]
   [:area {:shape "poly"
-          :coords (coords x-y (get-in deltas [side :square]))}])
+          :coords (coords x-y side (deltas :square))}])
 
 (defn- row [x-y side]
   (into [:div]
-        (map #(area % side) (coords x-y (get-in deltas [side :row])))))
+        (map #(area % side) (coords x-y side (deltas :row)))))
 
 (defn- stack [x-y side]
   (into [:div]
-        (map #(row % side) (coords x-y (get-in deltas [side :stack])))))
+        (map #(row % side) (coords x-y side (deltas :stack)))))
 
 (defn layout-background [mk-click-handler]
   [:div
@@ -92,10 +100,10 @@
     [stack [46,9] :left]
 
     [area [351,243] :left]
-    [area [421,253] :right]
+    [area [473,243] :right]
 
-    #_[stack [778,8] :right]
-    [area [520,42] :right]
-    [area [655,19] :right]]
+    [stack [778,8] :right]
+    #_[area [520,42] :right]
+    #_[area [655,19] :right]]
    [:img {:useMap "#layout"
           :src "/img/layout-blank.svg"}]])
