@@ -15,7 +15,7 @@
      {:modal-options {}})))
 
 (defn modal []
-  [base/fixed 20
+  [base/fixed 0
    [modal/modal-root
     @(re-frame/subscribe [:modal-content])
     @(re-frame/subscribe [:modal-options])]])
@@ -23,7 +23,7 @@
 (defn main-panel []
   [:div
    [modal]
-   [:h1 "Hello World"]])
+   [base/layout-background #(re-frame/dispatch [:show-modal "index" %1])]])
 
 (defn init-render! []
   (re-frame/dispatch [:initialise-db])
@@ -32,5 +32,4 @@
 
 (defn ^:export start! []
   (setup!)
-  (init-render!)
-  (.setTimeout js/window #(re-frame/dispatch [:show-modal "Cake"]) 1000))
+  (init-render!))
