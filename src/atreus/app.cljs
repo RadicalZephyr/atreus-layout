@@ -6,6 +6,8 @@
             [atreus.ui.modal :as modal]))
 
 (defn setup! []
+  (modal/setup!)
+
   (re-frame/reg-event-db
    :initialise-db
    (fn
@@ -14,7 +16,9 @@
 
 (defn modal []
   [base/fixed 20
-   [modal/modal-root "Hello Modal!" {:show true}]])
+   [modal/modal-root
+    @(re-frame/subscribe [:modal-content])
+    @(re-frame/subscribe [:modal-options])]])
 
 (defn main-panel []
   [:div
@@ -28,4 +32,5 @@
 
 (defn ^:export start! []
   (setup!)
-  (init-render!))
+  (init-render!)
+  (.setTimeout js/window #(re-frame/dispatch [:show-modal "Cake"]) 1000))

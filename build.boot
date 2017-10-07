@@ -22,6 +22,8 @@
                     [compojure "1.6.0"]
                     [devcards "0.2.3" :exclusions
                      [org.clojure/clojurescript]]
+                    [day8/re-frame-tracer "0.1.1-SNAPSHOT"]
+                    [org.clojars.stumitchell/clairvoyant "0.2.0"]
                     [radicalzephyr/ring.middleware.logger "0.6.0"
                      :exclusions [[org.slf4j/slf4j-log4j12 :extension "jar"]]]
                     [adzerk/boot-cljs              "2.1.1"]
@@ -64,7 +66,8 @@
   []
   (task-options! cljs {:optimizations :none
                        :source-map true
-                       :compiler-options {:devcards true}}
+                       :compiler-options {:devcards true
+                                          :closure-defines {"clairvoyant.core.devmode" true}}}
                  reload {:asset-path "public"}
                  serve {:handler 'atreus.layout/handler
                         :port 8080})

@@ -1,5 +1,40 @@
 (ns atreus.ui.modal
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [re-frame.core :as re-frame]
+            [clairvoyant.core :refer-macros [trace-forms]]
+            [re-frame-tracer.core :refer [tracer]]))
+
+(defn setup! []
+  ;; Event Handlers
+  (trace-forms {:tracer (tracer :color "green")}
+    (re-frame/reg-event-db
+     :show-modal
+     (fn show-modal-event [db [_ content]]
+       (-> db
+           (assoc-in [:modal-options :show] true)
+           (assoc :modal-content content))))
+
+    (re-frame/reg-event-db
+     :hide-modal
+     (fn hide-modal-event [db _]
+       (assoc-in db [:modal-options :show] false)))
+
+    (re-frame/reg-event-db
+     :set-modal-options
+     (fn set-modal-options-event [db [_ options]]
+       (assoc db :modal-options options))))
+
+  ;; Subscriptions
+  (trace-forms {:tracer (tracer :color "brown")}
+    (re-frame/reg-sub
+     :modal-content
+     (fn modal-content-sub [db _]
+       (:modal-content db)))
+
+    (re-frame/reg-sub
+     :modal-options
+     (fn modal-options-sub [db _]
+       (:modal-options db)))))
 
 (def ^:private
   modal-defaults
@@ -9,7 +44,7 @@
    :min-width 280
    :overlay true
    :show false
-   :close-fn #()})
+   :close-fn #(re-frame/dispatch [:hide-modal])})
 
 (def ^:private modal-container-id
   "modal-container")
@@ -24,6 +59,7 @@
   (str/join " " (compact class-names)))
 
 (defn modal-root [content options]
+  (.log js/console options)
   (let [options (merge modal-defaults options)
         container-classes (cond-> [modal-container-id]
                             (:overlay options) (conj "modal-container--overlay")
