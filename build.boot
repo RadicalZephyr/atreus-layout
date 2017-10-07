@@ -31,6 +31,7 @@
                     [adzerk/boot-reload            "0.5.1"]
                     [pandeiro/boot-http            "0.8.3"]
                     [org.martinklepsch/boot-garden "1.3.2-0"]
+                    [samestep/boot-refresh "0.1.0"]
 
                     ;; cljs-repl
                     [com.cemerick/piggieback "0.2.2"
@@ -50,7 +51,8 @@
  '[adzerk.boot-reload    :refer [reload]]
  '[pandeiro.boot-http    :refer [serve]]
  '[crisptrutski.boot-cljs-test :refer [test-cljs]]
- '[org.martinklepsch.boot-garden :refer [garden]])
+ '[org.martinklepsch.boot-garden :refer [garden]]
+ '[samestep.boot-refresh :refer [refresh]])
 
 ;; Pipeline configuration tasks
 
@@ -119,7 +121,8 @@
   []
   (comp (development)
         (testing)
-        (run)))
+        (run)
+        (refresh)))
 
 ;;; Silence name collision warning
 (ns-unmap 'boot.user 'test)
