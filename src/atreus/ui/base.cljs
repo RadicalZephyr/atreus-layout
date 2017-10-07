@@ -158,7 +158,7 @@
                             (:overlay options) (conj "modal-container--overlay")
                             (:show options) (conj "modal-container--show"))]
     (if (:show options)
-      [:div
+      [:div.uber-container
        [:div.scotch-overlay.fade-and-drop.scotch-open]
        [:div.scotch-modal.fade-and-drop.scotch-open
         {:style (select-keys options [:max-width :min-width])}

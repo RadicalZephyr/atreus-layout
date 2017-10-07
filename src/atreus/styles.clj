@@ -29,6 +29,11 @@
    {:font-family "Anonymous Pro"
     :src "url(\"/fonts/anonymous-pro.ttf\")"})
 
+  [:.uber-container
+   {:position "relative"
+    :width "100%"
+    :height "100%"}]
+
   [:.scotch-overlay
    {:transition "1ms opacity ease"
     :top "0"
@@ -36,7 +41,7 @@
     :background "rgba(0,0,0,.6)"
     :z-index "9998"
     :opacity "0"
-    :position "fixed"
+    :position "absolute"
     :-o-transition "1ms opacity ease"
     :-moz-transition "1ms opacity ease"
     :-webkit-transition "1ms opacity ease"
