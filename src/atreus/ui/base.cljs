@@ -137,7 +137,8 @@
    :max-width 600
    :min-width 280
    :overlay true
-   :show false})
+   :show false
+   :close-fn #()})
 
 (def ^:private modal-container-id
   "modal-container")
@@ -152,13 +153,17 @@
   (str/join " " (compact class-names)))
 
 (defn modal-root [content options]
-  (let [options (merge options modal-defaults)
+  (let [options (merge modal-defaults options)
         container-classes (cond-> [modal-container-id]
                             (:overlay options) (conj "modal-container--overlay")
                             (:show options) (conj "modal-container--show"))]
-    [:div {:class (->css-classes modal-container-id
-                                 (:container-class-name options))}
-     [:div {:class (->css-classes modal-id
-                                  (:modal-class-name options))
-            :style (select-keys options [:max-width :min-width])}
-      content]]))
+    (if (:show options)
+      [:div
+       [:div.scotch-overlay.fade-and-drop.scotch-open]
+       [:div.scotch-modal.fade-and-drop.scotch-open
+        {:style (select-keys options [:max-width :min-width])}
+        [:button.scotch-close.close-button
+         {:onClick (:close-fn options)}
+         "x"]
+        [:div.scotch-content content]]]
+      [:div])))

@@ -231,6 +231,9 @@
 (defcard-rg modal-shown
   (fn [data _]
     [:div {:style {:width 400 :height 500}}
-     [sut/modal-root "Visible Modal!" {:show true}]])
+     [:code (pr-str (:options @data))]
+     [sut/modal-root "Visible Modal!" (merge {:close-fn #(swap! data update-in [:options :show] not)}
+                                             (:options @data))]])
   (r/atom {:modal-content ""
-           :options {}}))
+           :options {:show true}})
+  {:inspect-data true})
