@@ -1,7 +1,8 @@
 (ns atreus.app
   (:require [reagent.core :as reagent]
             [reagent.ratom :as ratom]
-            [re-frame.core :as re-frame]))
+            [re-frame.core :as re-frame]
+            [atreus.ui.base :as base]))
 
 (defn setup-re-frame! []
   (re-frame/register-handler
@@ -11,7 +12,10 @@
      {})))
 
 (defn main-panel []
-  [:div [:h1 "Hello World"]])
+  [:div
+   [base/fixed 20
+    [base/modal-root "Hello Modal!" {:show true}]]
+   [:h1 "Hello World"]])
 
 (defn init-render! []
   (re-frame/dispatch [:initialise-db])
