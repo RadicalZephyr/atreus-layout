@@ -32,6 +32,7 @@
                     [pandeiro/boot-http            "0.8.3"]
                     [org.martinklepsch/boot-garden "1.3.2-0"]
                     [samestep/boot-refresh "0.1.0"]
+                    [powerlaces/boot-cljs-devtools "0.2.0"]
 
                     ;; cljs-repl
                     [com.cemerick/piggieback "0.2.2"
@@ -39,6 +40,7 @@
                     [weasel                  "0.7.0"
                      :exclusions [org.clojure/clojurescript]]
                     [org.clojure/tools.nrepl "0.2.13"]
+                    [binaryage/devtools "0.9.2"]
 
                     ;; cljs tests
                     ;; Apparently 0.2.0-SNAPSHOT is the magic version
@@ -51,6 +53,7 @@
  '[adzerk.boot-reload    :refer [reload]]
  '[pandeiro.boot-http    :refer [serve]]
  '[crisptrutski.boot-cljs-test :refer [test-cljs]]
+ '[powerlaces.boot-cljs-devtools :refer [cljs-devtools]]
  '[org.martinklepsch.boot-garden :refer [garden]]
  '[samestep.boot-refresh :refer [refresh]])
 
@@ -98,6 +101,7 @@
   (comp (serve)
         (watch)
         (cljs-repl)
+        (cljs-devtools)
         (reload)
         (build)))
 
