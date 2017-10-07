@@ -2,7 +2,7 @@
   (:require [cljs.test :refer-macros [is testing]]
             [devcards.core :refer-macros [deftest defcard defcard-rg]]
             [atreus.ui.base :as sut]
-            [reagent.core]))
+            [reagent.core :as r]))
 
 (defcard-rg key-labels
   "All key labels are made with SVG sprites, and a little bit of magic."
@@ -215,3 +215,15 @@
   {:labels (vec (repeat 42 nil))}
   {:inspect-data true
    :history true})
+
+(defcard-rg modal
+  "Modals are cool."
+  (fn [data _]
+    [:div
+     [sut/modal-root (:modal-content @data)]
+     [:button {:on-click #(swap! data assoc :modal-content (str "Hello Modals!" (:count @data))
+                                 :count (inc (:count @data)))}
+      "Show Modal"]])
+  (r/atom {:modal-content ""
+           :count 0})
+  {:inspect-data true})

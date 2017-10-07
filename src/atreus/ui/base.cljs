@@ -129,3 +129,24 @@
     [stack click-handler labels [777,6] :right]]
    [:img {:useMap "#layout"
           :src "/img/layout-blank.svg"}]])
+
+(def ^:private
+  modal-defaults
+  {:container-class-name "fade-and-drop"
+   :modal-class-name "modal"
+   :max-width 600
+   :min-width 280
+   :overlay true})
+
+(def ^:private modal-container-id
+  "modal-container")
+
+(def ^:private modal-id
+  "modal")
+
+(defn modal-root [content options]
+  (let [options (merge options modal-defaults)]
+    [:div {:class (:container-class-name options)}
+     [:div {:class (:modal-class-name options)
+            :style (select-keys options [:max-width :min-width])}
+      content]]))
