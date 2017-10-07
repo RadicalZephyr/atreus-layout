@@ -227,3 +227,10 @@
   (r/atom {:modal-content ""
            :count 0})
   {:inspect-data true})
+
+(defcard-rg modal-shown
+  (fn [data _]
+    [:div {:style {:width 400 :height 500}}
+     [sut/modal-root "Visible Modal!" {:show true}]])
+  (r/atom {:modal-content ""
+           :options {}}))

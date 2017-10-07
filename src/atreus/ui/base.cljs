@@ -132,11 +132,12 @@
 
 (def ^:private
   modal-defaults
-  {:container-class-name "fade-and-drop"
-   :modal-class-name "modal"
+  {:container-class-name nil
+   :modal-class-name nil
    :max-width 600
    :min-width 280
-   :overlay true})
+   :overlay true
+   :show false})
 
 (def ^:private modal-container-id
   "modal-container")
@@ -144,9 +145,20 @@
 (def ^:private modal-id
   "modal")
 
+(defn- compact [coll]
+  (keep identity coll))
+
+(defn- ->css-classes [& class-names]
+  (str/join " " (compact class-names)))
+
 (defn modal-root [content options]
-  (let [options (merge options modal-defaults)]
-    [:div {:class (:container-class-name options)}
-     [:div {:class (:modal-class-name options)
+  (let [options (merge options modal-defaults)
+        container-classes (cond-> [modal-container-id]
+                            (:overlay options) (conj "modal-container--overlay")
+                            (:show options) (conj "modal-container--show"))]
+    [:div {:class (->css-classes modal-container-id
+                                 (:container-class-name options))}
+     [:div {:class (->css-classes modal-id
+                                  (:modal-class-name options))
             :style (select-keys options [:max-width :min-width])}
       content]]))
