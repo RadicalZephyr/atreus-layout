@@ -59,7 +59,6 @@
   (str/join " " (compact class-names)))
 
 (defn modal-root [content options]
-  (.log js/console options)
   (let [options (merge modal-defaults options)
         container-classes (cond-> [modal-container-id]
                             (:overlay options) (conj "modal-container--overlay")

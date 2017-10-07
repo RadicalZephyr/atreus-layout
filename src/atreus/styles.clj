@@ -30,9 +30,10 @@
     :src "url(\"/fonts/anonymous-pro.ttf\")"})
 
   [:.uber-container
-   {:position "relative"
+   {:position "fixed"
     :width "100%"
-    :height "100%"}]
+    :height "100%"
+    :z-index 2}]
 
   [:.scotch-overlay
    {:transition "1ms opacity ease"

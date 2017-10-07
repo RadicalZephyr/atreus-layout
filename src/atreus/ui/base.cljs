@@ -129,12 +129,3 @@
     [stack click-handler labels [777,6] :right]]
    [:img {:useMap "#layout"
           :src "/img/layout-blank.svg"}]])
-
-(defn fixed [offset & children]
-  (into
-   [:div {:style {:top offset
-                  :position "fixed"
-                  :height "100%"
-                  :width "100%"
-                  :z-index 2}}]
-   children))
