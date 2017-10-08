@@ -40,7 +40,7 @@
    (when (and (seq labels)
               (> (count labels) index)
               (nth labels index))
-     [:span.layout-label {:style (styles-for x-y side)}
+     [:span.layer-label {:style (styles-for x-y side)}
       [base/label (nth labels index) side]])
    [:area {:onClick (fn [e]
                       (.preventDefault e)
@@ -59,14 +59,14 @@
         (map-indexed #(row click-handler labels %1 %2 side)
                      (coords x-y side (deltas :stack)))))
 
-(defn layout-background [click-handler labels]
-  [:div#layout-root
-   [:map {:name "layout"}
+(defn layer-background [click-handler labels]
+  [:div#layer-root
+   [:map {:name "layer"}
     [stack click-handler labels [46,7] :left]
 
     [area click-handler labels 35 [349.5,240.25] :left]
     [area click-handler labels 36 [473.5,240] :right]
 
     [stack click-handler labels [777,6] :right]]
-   [:img {:useMap "#layout"
-          :src "/img/layout-blank.svg"}]])
+   [:img {:useMap "#layer"
+          :src "/img/layer-blank.svg"}]])

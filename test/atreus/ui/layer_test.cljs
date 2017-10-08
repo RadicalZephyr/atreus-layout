@@ -22,16 +22,16 @@
       (is (= 38 (sut/index :right 3 3)))
       (is (= 37 (sut/index :right 3 4))))))
 
-(defcard-rg atreus-layout
-  "The layout is done with an SVG and image map."
+(defcard-rg atreus-layer
+  "The layer is done with an SVG and image map."
   (fn [data _]
-    [:div#layout-root {:style {:border "1px solid black"}
-                       :onClick #(let [root-el (.getElementById js/document "layout-root")
+    [:div#layer-root {:style {:border "1px solid black"}
+                       :onClick #(let [root-el (.getElementById js/document "layer-root")
                                        root-rect (.getBoundingClientRect root-el)]
                                      (swap! data assoc
                                             :x (- (.-clientX %) (.-left root-rect))
                                             :y (- (.-clientY %) (.-top root-rect))))}
-     [sut/layout-background (fn [index side]
+     [sut/layer-background (fn [index side]
                               (swap! data assoc
                                      :index index
                                      :side side))

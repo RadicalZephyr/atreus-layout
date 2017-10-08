@@ -23,7 +23,7 @@
 (defn main-panel []
   [:div
    [modal]
-   [layer/layout-background #(re-frame/dispatch [:show-modal (str "index " %1)])]])
+   [layer/layer-background #(re-frame/dispatch [:show-modal (str "index " %1)])]])
 
 (defn init-render! []
   (re-frame/dispatch [:initialise-db])
