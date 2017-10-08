@@ -1,5 +1,6 @@
 (ns atreus.ui.base
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [reagent.core :as reagent]))
 
 (defn- font-size-for [name]
   (case (count name)
@@ -62,3 +63,15 @@
    (-label name :rotation/none))
   ([name rotation]
    (-label name rotation)))
+
+(defn register-dom-event [target event-name on-key-fn & content]
+  (reagent/create-class
+   {:component-will-mount
+    (fn []
+      (.addEventListener target event-name on-key-fn))
+    :component-will-unmount
+    (fn []
+      (.removeEventListener target event-name on-key-fn))
+    :reagent-render
+    (fn []
+      (into [:div] content))}))

@@ -179,3 +179,11 @@
     [sut/label "a"  :right]
     [sut/label "up" :left]
     [sut/label "up" :right]]])
+
+(defcard-rg keydown-capture-card
+  (fn [data _]
+    [sut/register-dom-event js/document "keydown" (fn [e] (reset! data (.-key e)))
+     [:div "Type a key. The ASCII character code will appear below."]])
+  (r/atom nil)
+  {:inspect-data true
+   :history true})
