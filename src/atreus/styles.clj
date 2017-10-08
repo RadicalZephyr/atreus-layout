@@ -8,6 +8,11 @@
 
   [:body {:font-family "Helvetica"}]
 
+  [:#app-content {:display "flex"
+                  :justify-content "center"
+                  :align-items "center"
+                  :min-height "100vh"}]
+
   [:#layer-root {:position "relative"
                   :z-index 1}]
 

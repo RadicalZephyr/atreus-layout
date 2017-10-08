@@ -42,8 +42,9 @@
 (defn main-panel []
   [:div
    [modal]
-   [layer/layer-background #(re-frame/dispatch
-                             [:open-modal [character-capture %1]])]])
+   [:div#app-content
+    [layer/layer-background #(re-frame/dispatch
+                              [:open-modal [character-capture %1]])]]])
 
 (defn init-render! []
   (re-frame/dispatch [:initialise-db])
