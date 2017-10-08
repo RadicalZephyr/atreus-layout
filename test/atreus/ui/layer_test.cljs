@@ -39,16 +39,24 @@
   "The layer is done with an SVG and image map."
   (fn [data _]
     [:div#layer-root {:style {:border "1px solid black"}
-                       :onClick #(let [root-el (.getElementById js/document "layer-root")
-                                       root-rect (.getBoundingClientRect root-el)]
-                                     (swap! data assoc
-                                            :x (- (.-clientX %) (.-left root-rect))
-                                            :y (- (.-clientY %) (.-top root-rect))))}
+                      :onClick #(let [root-el (.getElementById js/document "layer-root")
+                                      root-rect (.getBoundingClientRect root-el)]
+                                  (swap! data assoc
+                                         :x (- (.-clientX %) (.-left root-rect))
+                                         :y (- (.-clientY %) (.-top root-rect))))}
      [sut/layer-background (fn [index side]
-                              (swap! data assoc
-                                     :index index
-                                     :side side))
-      (:labels @data)]])
-  {:labels (vec (repeat 42 nil))}
+                             (swap! data assoc
+                                    :index index
+                                    :side side))
+      {}]])
+  {}
   {:inspect-data true
    :history true})
+
+(defcard-rg atreus-layer-with-labels
+  (fn [data _]
+    [:div
+     [sut/layer-background (fn [index side]
+                             (swap! data assoc-in [:bindings index] (str index)))
+      (:bindings @data)]])
+  (r/atom {:bindings {}}))

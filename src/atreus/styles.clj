@@ -13,7 +13,7 @@
                   :align-items "center"
                   :min-height "100vh"}]
 
-  [:#layer-root {:position "relative"
+  [:.layer-root {:position "relative"
                   :z-index 1}]
 
   [:area {:cursor "pointer"}]

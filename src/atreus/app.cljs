@@ -7,9 +7,6 @@
             [atreus.ui.modal :as modal]
             [atreus.ui.layer :as layer]))
 
-(defn empty-layout []
-  [[{}]])
-
 (defn setup! []
   (modal/setup!)
 
@@ -21,7 +18,7 @@
        {:modal-options {}
         :layer-index 0
         :binding-index 0
-        :current-layout (empty-layout)}))
+        :current-layout (layer/empty-layout)}))
 
     (re-frame/reg-event-fx
      :set-key

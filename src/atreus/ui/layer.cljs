@@ -6,6 +6,9 @@
             [atreus.command]
             [atreus.ui.base :as base]))
 
+(defn empty-layout []
+  [[{}]])
+
 (s/def ::index (s/int-in 0 42))
 (s/def ::layer (s/map-of ::index :atreus/command
                          :min-count 1
@@ -82,13 +85,14 @@
                      (coords x-y side (deltas :stack)))))
 
 (defn layer-background [click-handler bindings]
-  [:div#layer-root
-   [:map {:name "layer"}
-    [stack click-handler bindings [46,7] :left]
+  (let [layer-id (gensym "layer")]
+    [:div.layer-root
+     [:map {:name layer-id}
+      [stack click-handler bindings [46,7] :left]
 
-    [area click-handler bindings 35 [349.5,240.25] :left]
-    [area click-handler bindings 36 [473.5,240] :right]
+      [area click-handler bindings 35 [349.5,240.25] :left]
+      [area click-handler bindings 36 [473.5,240] :right]
 
-    [stack click-handler bindings [777,6] :right]]
-   [:img {:useMap "#layer"
-          :src "/img/layer-blank.svg"}]])
+      [stack click-handler bindings [777,6] :right]]
+     [:img {:useMap (str "#" layer-id)
+            :src "/img/layer-blank.svg"}]]))
