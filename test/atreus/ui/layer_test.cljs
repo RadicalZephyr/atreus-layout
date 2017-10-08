@@ -6,15 +6,15 @@
             [atreus.ui.layer :as sut]))
 
 (deftest test-layout-spec
-  (is (not (s/valid? :atreus.ui.layer/layout
+  (is (not (s/valid? :atreus/layout
                      [])))
-  (is (not (s/valid? :atreus.ui.layer/layout
+  (is (not (s/valid? :atreus/layout
                      [{}])))
-  (is (s/valid? :atreus.ui.layer/layout
+  (is (s/valid? :atreus/layout
                 [{0 \c}]))
-  (is (not (s/valid? :atreus.ui.layer/layout
+  (is (not (s/valid? :atreus/layout
                      [{0 "ca"}])))
-  (is (s/valid? :atreus.ui.layer/layout
+  (is (s/valid? :atreus/layout
                 [{0 :esc}])))
 
 (deftest test-index

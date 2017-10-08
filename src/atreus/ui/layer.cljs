@@ -10,10 +10,10 @@
 (s/def ::layer (s/map-of ::index :atreus/command
                          :min-count 1
                          :max-count 42))
-(s/def ::layout (s/coll-of ::layer
-                           :kind vector?
-                           :min-count 1
-                           :max-count 32))
+(s/def :atreus/layout (s/coll-of ::layer
+                                 :kind vector?
+                                 :min-count 1
+                                 :max-count 32))
 
 (def ^:private
   deltas
