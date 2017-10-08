@@ -8,15 +8,15 @@
   ;; Event Handlers
   (trace-forms {:tracer (tracer :color "green")}
     (re-frame/reg-event-db
-     :show-modal
-     (fn show-modal-event [db [_ content]]
+     :open-modal
+     (fn open-modal-event [db [_ content]]
        (-> db
            (assoc-in [:modal-options :show] true)
            (assoc :modal-content content))))
 
     (re-frame/reg-event-db
-     :hide-modal
-     (fn hide-modal-event [db _]
+     :close-modal
+     (fn close-modal-event [db _]
        (assoc-in db [:modal-options :show] false)))
 
     (re-frame/reg-event-db
@@ -44,7 +44,7 @@
    :min-width 280
    :overlay true
    :show false
-   :close-fn #(re-frame/dispatch [:hide-modal])})
+   :close-fn #(re-frame/dispatch [:close-modal])})
 
 (def ^:private modal-container-id
   "modal-container")
