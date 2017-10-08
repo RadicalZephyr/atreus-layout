@@ -9,7 +9,7 @@
                     :lsuper :rsuper
                     :lcmd :rcmd})
 
-(s/def ::special-characters #{:esc :tab
+(s/def ::special-characters #{:escape :tab
                               :enter :backspace
                               :insert :delete
                               :f1 :f2 :f3 :f4

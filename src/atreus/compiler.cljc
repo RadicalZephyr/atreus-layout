@@ -9,7 +9,11 @@
   {:lsuper :lgui
    :rsuper :rgui
    :lcmd :lgui
-   :rcmd :rgui})
+   :rcmd :rgui
+   :page-up :pgup
+   :page-down :pgdown
+   :backspace :bspace
+   :print-screen :pscreen})
 
 (defmulti -binding->key-symbol
   (fn [binding]
@@ -22,6 +26,12 @@
 (defmethod -binding->key-symbol :modifier
   [binding]
   (str "KC_" (str/upper-case (name (get renames binding binding)))))
+
+(defmethod -binding->key-symbol :special-characters
+  [binding]
+  (str "KC_" (str/upper-case (str/replace (name (get renames binding binding))
+                                          "-"
+                                          ""))))
 
 (defn binding->key-symbol [binding]
   (-binding->key-symbol binding))
