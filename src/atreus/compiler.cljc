@@ -2,4 +2,4 @@
   (:refer-clojure :exclude [compile]))
 
 (defn compile [layout]
-  "hello")
+  "")
