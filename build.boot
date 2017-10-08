@@ -42,10 +42,7 @@
                     [org.clojure/tools.nrepl "0.2.13"]
                     [binaryage/devtools "0.9.2"]
 
-                    ;; cljs tests
-                    ;; Apparently 0.2.0-SNAPSHOT is the magic version
-                    ;; where boot-cljs-test _actually works_...
-                    [crisptrutski/boot-cljs-test "0.2.0-SNAPSHOT"]])
+                    [crisptrutski/boot-cljs-test "0.3.4"]])
 
 (require
  '[adzerk.boot-cljs      :refer [cljs]]
@@ -142,4 +139,6 @@
   []
   (comp (testing)
         (watch)
-        (test-cljs :js-env :phantom)))
+        (test-cljs :js-env :phantom
+                   :namespaces #{"atreus.devcards"
+                                 #"atreus.*-test"})))
