@@ -46,13 +46,14 @@
            (- x 48)
            (- x 2))})
 
-(defn- area [click-handler labels index x-y side]
+(defn- get-current-layer [layout layer-index binding-index]
+  (get-in layout [layer-index binding-index]))
+
+(defn- area [click-handler bindings index x-y side]
   [:div
-   (when (and (seq labels)
-              (> (count labels) index)
-              (nth labels index))
+   (when (contains? bindings index)
      [:span.layer-label {:style (styles-for x-y side)}
-      [base/label (nth labels index) side]])
+      [base/label (get bindings index) side]])
    [:area {:onClick (fn [e]
                       (.preventDefault e)
                       (click-handler index side))
@@ -60,24 +61,34 @@
            :shape "poly"
            :coords (coords x-y side (deltas :square))}]])
 
-(defn- row [click-handler labels row-index x-y side]
+(defn- row [click-handler bindings row-index x-y side]
   (into [:div]
-        (map-indexed #(area click-handler labels (index side row-index %1) %2 side)
+        (map-indexed (fn [column-index column-x-y]
+                       [area click-handler
+                             bindings
+                             (index side row-index column-index)
+                             column-x-y
+                             side])
                      (coords x-y side (deltas :row)))))
 
-(defn- stack [click-handler labels x-y side]
+(defn- stack [click-handler bindings x-y side]
   (into [:div]
-        (map-indexed #(row click-handler labels %1 %2 side)
+        (map-indexed (fn [row-index row-x-y]
+                       [row click-handler
+                            bindings
+                            row-index
+                            row-x-y
+                            side])
                      (coords x-y side (deltas :stack)))))
 
-(defn layer-background [click-handler labels]
+(defn layer-background [click-handler bindings]
   [:div#layer-root
    [:map {:name "layer"}
-    [stack click-handler labels [46,7] :left]
+    [stack click-handler bindings [46,7] :left]
 
-    [area click-handler labels 35 [349.5,240.25] :left]
-    [area click-handler labels 36 [473.5,240] :right]
+    [area click-handler bindings 35 [349.5,240.25] :left]
+    [area click-handler bindings 36 [473.5,240] :right]
 
-    [stack click-handler labels [777,6] :right]]
+    [stack click-handler bindings [777,6] :right]]
    [:img {:useMap "#layer"
           :src "/img/layer-blank.svg"}]])
