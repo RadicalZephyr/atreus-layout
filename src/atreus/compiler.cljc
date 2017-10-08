@@ -4,6 +4,13 @@
             [clojure.spec.alpha :as s]
             [atreus.command]))
 
+(def ^:private
+  renames
+  {:lsuper :lgui
+   :rsuper :rgui
+   :lcmd :lgui
+   :rcmd :rgui})
+
 (defmulti -binding->key-symbol
   (fn [binding]
     (first (s/conform :atreus/command binding))))
@@ -14,7 +21,7 @@
 
 (defmethod -binding->key-symbol :modifier
   [binding]
-  "KC_LSHIFT")
+  (str "KC_" (str/upper-case (name (get renames binding binding)))))
 
 (defn binding->key-symbol [binding]
   (-binding->key-symbol binding))
