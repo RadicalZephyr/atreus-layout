@@ -5,7 +5,8 @@
             [re-frame.core :as re-frame]
             [atreus.ui.base :as base]
             [atreus.ui.modal :as modal]
-            [atreus.ui.layer :as layer]))
+            [atreus.ui.layer :as layer]
+            [atreus.compiler :as compiler]))
 
 (defn setup! []
   (modal/setup!)
@@ -25,7 +26,14 @@
 
      (fn set-key-event [cofx [_ index keyevent]]
        {:db (assoc-in (:db cofx) [:current-layout 0 0 index] (.-key keyevent))
-        :dispatch [:close-modal]})))
+        :dispatch [:close-modal]}))
+
+    (re-frame/reg-event-db
+     :compile-layout
+     (fn compile-layout-event [db _]
+       (->> (:current-layout db)
+            compiler/compile
+            (assoc db :compiled-layout)))))
 
   ;; Subscriptions
   (trace-forms {:tracer (tracer :color "brown")}
@@ -71,7 +79,10 @@
     [layer/layer-background
      #(re-frame/dispatch
         [:open-modal [character-capture %1]])
-     @(re-frame/subscribe [:current-bindings])]]])
+     @(re-frame/subscribe [:current-bindings])]
+    [:input {:type "button"
+             :value "Compile!"
+             :onClick #(re-frame/dispatch [:compile-layout])}]]])
 
 (defn init-render! []
   (re-frame/dispatch [:initialise-db])
