@@ -3,7 +3,8 @@
             [reagent.ratom :as ratom]
             [re-frame.core :as re-frame]
             [atreus.ui.base :as base]
-            [atreus.ui.modal :as modal]))
+            [atreus.ui.modal :as modal]
+            [atreus.ui.layer :as layer]))
 
 (defn setup! []
   (modal/setup!)
@@ -22,7 +23,7 @@
 (defn main-panel []
   [:div
    [modal]
-   [base/layout-background #(re-frame/dispatch [:show-modal (str "index " %1)])]])
+   [layer/layout-background #(re-frame/dispatch [:show-modal (str "index " %1)])]])
 
 (defn init-render! []
   (re-frame/dispatch [:initialise-db])
