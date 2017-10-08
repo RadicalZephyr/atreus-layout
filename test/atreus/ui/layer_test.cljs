@@ -13,7 +13,9 @@
   (is (s/valid? :atreus.ui.layer/layout
                 [{0 \c}]))
   (is (not (s/valid? :atreus.ui.layer/layout
-                     [{0 "ca"}]))))
+                     [{0 "ca"}])))
+  (is (s/valid? :atreus.ui.layer/layout
+                [{0 :esc}])))
 
 (deftest test-index
   (testing "left side indices"

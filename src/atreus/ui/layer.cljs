@@ -3,11 +3,11 @@
             [clairvoyant.core :refer-macros [trace-forms]]
             [re-frame-tracer.core :refer [tracer]]
             [clojure.spec.alpha :as s]
+            [atreus.command]
             [atreus.ui.base :as base]))
 
-(s/def ::cmd char?)
 (s/def ::index (s/int-in 0 42))
-(s/def ::layer (s/map-of ::index ::cmd
+(s/def ::layer (s/map-of ::index :atreus/command
                          :min-count 1
                          :max-count 42))
 (s/def ::layout (s/coll-of ::layer
