@@ -21,10 +21,11 @@
        {:modal-options {}
         :current-layout (empty-layout)}))
 
-    (re-frame/reg-event-db
+    (re-frame/reg-event-fx
      :set-key
-     (fn set-key-event [db [_ index keyevent]]
-       (assoc-in db [:current-layout 0 0 index] (.-key keyevent))))))
+     (fn set-key-event [cofx [_ index keyevent]]
+       {:db (assoc-in (:db cofx) [:current-layout 0 0 index] (.-key keyevent))
+        :dispatch [:close-modal]}))))
 
 (defn modal []
   [modal/modal-root
@@ -34,9 +35,7 @@
 ;; TODO: still have to implement capturing modifier + key combinations
 (defn character-capture [index]
   [base/register-dom-event js/document "keydown"
-   #(do
-      (re-frame/dispatch [:close-modal])
-      (re-frame/dispatch [:set-key index %1]))
+   #(re-frame/dispatch [:set-key index %1])
    [:h3 "Press a key"]
    "To assign that key to this button."])
 
