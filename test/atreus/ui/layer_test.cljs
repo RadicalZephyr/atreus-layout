@@ -1,8 +1,19 @@
 (ns atreus.ui.layer-test
   (:require [cljs.test :refer-macros [is testing]]
+            [clojure.spec.alpha :as s]
             [devcards.core :refer-macros [deftest defcard defcard-rg]]
-            [atreus.ui.layer :as sut]
-            [reagent.core :as r]))
+            [reagent.core :as r]
+            [atreus.ui.layer :as sut]))
+
+(deftest test-layout-spec
+  (is (not (s/valid? :atreus.ui.layer/layout
+                     [])))
+  (is (not (s/valid? :atreus.ui.layer/layout
+                     [{}])))
+  (is (s/valid? :atreus.ui.layer/layout
+                [{0 \c}]))
+  (is (not (s/valid? :atreus.ui.layer/layout
+                     [{0 "ca"}]))))
 
 (deftest test-index
   (testing "left side indices"

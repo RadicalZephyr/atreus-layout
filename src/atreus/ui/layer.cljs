@@ -2,7 +2,18 @@
   (:require [re-frame.core :as re-frame]
             [clairvoyant.core :refer-macros [trace-forms]]
             [re-frame-tracer.core :refer [tracer]]
+            [clojure.spec.alpha :as s]
             [atreus.ui.base :as base]))
+
+(s/def ::cmd char?)
+(s/def ::index (s/int-in 0 42))
+(s/def ::layer (s/map-of ::index ::cmd
+                         :min-count 1
+                         :max-count 42))
+(s/def ::layout (s/coll-of ::layer
+                           :kind vector?
+                           :min-count 1
+                           :max-count 32))
 
 (def ^:private
   deltas
