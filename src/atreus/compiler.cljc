@@ -15,6 +15,8 @@
    :backspace :bspace
    :print-screen :pscreen})
 
+(declare binding->key-symbol)
+
 (defmulti -binding->key-symbol
   (fn [binding]
     (first (s/conform :atreus/command binding))))
@@ -32,6 +34,10 @@
   (str "KC_" (str/upper-case (str/replace (name (get renames binding binding))
                                           "-"
                                           ""))))
+
+(defmethod -binding->key-symbol :composite
+  [[k & mods]]
+  (str "SHIFT(" (binding->key-symbol k) ")") )
 
 (defn binding->key-symbol [binding]
   (-binding->key-symbol binding))

@@ -54,7 +54,10 @@
       (is (= "KC_F9"  (sut/binding->key-symbol :f9)))
       (is (= "KC_F10" (sut/binding->key-symbol :f10)))
       (is (= "KC_F11" (sut/binding->key-symbol :f11)))
-      (is (= "KC_F12" (sut/binding->key-symbol :f12))))))
+      (is (= "KC_F12" (sut/binding->key-symbol :f12)))))
+
+  (testing "composite commands"
+    (is (= "SHIFT(KC_A)" (sut/binding->key-symbol [\a :lshift])))))
 
 (deftest test-compiler
   (is (= "" (sut/compile [{}]))))
