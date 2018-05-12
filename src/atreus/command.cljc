@@ -6,6 +6,7 @@
 (s/def ::modifier #{:lshift :rshift
                     :lctrl :rctrl
                     :lalt :ralt
+                    :lgui :rgui
                     :lsuper :rsuper
                     :lcmd :rcmd})
 

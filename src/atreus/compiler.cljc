@@ -35,9 +35,27 @@
                                           "-"
                                           ""))))
 
+(def ^:private
+  modifier-macro
+  {:lshift "SHIFT"
+   :rshift "SHIFT"
+   :lctrl  "CTRL"
+   :rctrl  "CTRL"
+   :lgui   "GUI"
+   :rgui   "GUI"
+   :lsuper "GUI"
+   :rsuper "GUI"
+   :lcmd   "GUI"
+   :rcmd   "GUI"
+   :lalt   "ALT"
+   :ralt   "RALT"})
+
 (defmethod -binding->key-symbol :composite
   [[k & mods]]
-  (str "SHIFT(" (binding->key-symbol k) ")") )
+  (reduce (fn [res mod]
+            (str (modifier-macro mod) "(" res ")"))
+          (binding->key-symbol k)
+          mods))
 
 (defn binding->key-symbol [binding]
   (-binding->key-symbol binding))

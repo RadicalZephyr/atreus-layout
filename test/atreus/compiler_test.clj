@@ -57,7 +57,20 @@
       (is (= "KC_F12" (sut/binding->key-symbol :f12)))))
 
   (testing "composite commands"
-    (is (= "SHIFT(KC_A)" (sut/binding->key-symbol [\a :lshift])))))
+    (is (= "SHIFT(KC_A)" (sut/binding->key-symbol [\a :lshift])))
+    (is (= "SHIFT(KC_A)" (sut/binding->key-symbol [\a :rshift])))
+    (is (= "CTRL(KC_A)"  (sut/binding->key-symbol [\a :lctrl])))
+    (is (= "CTRL(KC_A)"  (sut/binding->key-symbol [\a :rctrl])))
+    (is (= "GUI(KC_A)"   (sut/binding->key-symbol [\a :lgui])))
+    (is (= "GUI(KC_A)"   (sut/binding->key-symbol [\a :rgui])))
+    (is (= "GUI(KC_A)"   (sut/binding->key-symbol [\a :lsuper])))
+    (is (= "GUI(KC_A)"   (sut/binding->key-symbol [\a :rsuper])))
+    (is (= "GUI(KC_A)"   (sut/binding->key-symbol [\a :lcmd])))
+    (is (= "GUI(KC_A)"   (sut/binding->key-symbol [\a :rcmd])))
+    (is (= "ALT(KC_A)"   (sut/binding->key-symbol [\a :lalt])))
+    (is (= "RALT(KC_A)"  (sut/binding->key-symbol [\a :ralt])))
+
+    (is (= "CTRL(SHIFT(KC_A))" (sut/binding->key-symbol [\a :lshift :lctrl])))))
 
 (deftest test-compiler
   (is (= "" (sut/compile [{}]))))
