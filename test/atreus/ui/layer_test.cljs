@@ -15,7 +15,7 @@
   (is (not (s/valid? :atreus/layout
                      [{0 "ca"}])))
   (is (s/valid? :atreus/layout
-                [{0 :esc}])))
+                [{0 :escape}])))
 
 (deftest test-index
   (testing "left side indices"
