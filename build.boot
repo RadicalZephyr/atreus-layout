@@ -1,37 +1,39 @@
 (set-env!
  :source-paths    #{"src"}
  :resource-paths  #{"resources"}
- :dependencies    '[[org.clojure/clojurescript "1.9.854"]
+ :dependencies    (template
+                   [[org.clojure/clojure ~(clojure-version)]
+                    [org.clojure/clojurescript "1.10.238"]
 
-                    [re-frame "0.9.4" :exclusions
+                    [re-frame "0.10.5" :exclusions
                      [org.clojure/clojurescript]]
-                    [reagent "0.7.0"]
+                    [reagent "0.8.0"]
 
                     [wrest-xml "0.1.1"]
 
                     ;; Dev/Release build code-gen
                     [hiccup "1.0.5"]
-                    [garden "1.3.2"]
+                    [garden "1.3.5"]
 
                     ;; Why do I need these?? devcards 0.2.3 is broken...
-                    [cljsjs/react "15.3.1-0"]
-                    [cljsjs/react-dom "15.3.1-1"]
+                    [cljsjs/react "16.3.2-0"]
+                    [cljsjs/react-dom "16.3.2-0"]
 
                     ;; Boot dev environment
-                    [ring "1.6.2"]
-                    [compojure "1.6.0"]
-                    [devcards "0.2.3" :exclusions
+                    [ring "1.6.3"]
+                    [compojure "1.6.1"]
+                    [devcards "0.2.4" :exclusions
                      [org.clojure/clojurescript]]
                     [day8/re-frame-tracer "0.1.1-SNAPSHOT"]
                     [org.clojars.stumitchell/clairvoyant "0.2.0"]
                     [radicalzephyr/ring.middleware.logger "0.6.0"
                      :exclusions [[org.slf4j/slf4j-log4j12 :extension "jar"]]]
                     [metosin/boot-alt-test "0.3.2"]
-                    [adzerk/boot-cljs              "2.1.1"]
+                    [adzerk/boot-cljs              "2.1.4"]
                     [adzerk/boot-cljs-repl         "0.3.3"]
-                    [adzerk/boot-reload            "0.5.1"]
+                    [adzerk/boot-reload            "0.5.2"]
                     [pandeiro/boot-http            "0.8.3"]
-                    [org.martinklepsch/boot-garden "1.3.2-0"]
+                    [org.martinklepsch/boot-garden "1.3.2-1"]
                     [samestep/boot-refresh "0.1.0"]
                     [powerlaces/boot-cljs-devtools "0.2.0"]
 
@@ -41,9 +43,9 @@
                     [weasel                  "0.7.0"
                      :exclusions [org.clojure/clojurescript]]
                     [org.clojure/tools.nrepl "0.2.13"]
-                    [binaryage/devtools "0.9.2"]
+                    [binaryage/devtools "0.9.10"]
 
-                    [crisptrutski/boot-cljs-test "0.3.4"]])
+                    [crisptrutski/boot-cljs-test "0.3.4"]]))
 
 (require
  '[adzerk.boot-cljs      :refer [cljs]]
