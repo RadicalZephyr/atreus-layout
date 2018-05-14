@@ -74,5 +74,29 @@
                       (range 42)))
        ")"))
 
+(defmulti -compile-fn-action :action/type)
+
+(defmethod -compile-fn-action :layer/momentary
+  [action]
+  (str "LAYER_MOMENTARY(" (:layer/index action) ")"))
+
+(defmethod -compile-fn-action :layer/on
+  [action]
+  (str "LAYER_ON(" (:layer/index action) ", 1)"))
+
+(defmethod -compile-fn-action :layer/off
+  [action]
+  (str "LAYER_OFF(" (:layer/index action) ", 1)"))
+
+(defmethod -compile-fn-action :function
+  [action]
+  (str "FUNCTION(" (:function/name action) ")"))
+
+(defn compile-fn-action [action]
+  (str "["
+       (:fn/index action)
+       "] = ACTION_"
+       (-compile-fn-action action)))
+
 (defn compile [layout]
   "")

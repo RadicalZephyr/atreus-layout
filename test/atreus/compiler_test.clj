@@ -89,5 +89,26 @@
           (re-seq #"KC_NO"
                   (sut/compile-layer {}))))))
 
+(deftest test-compile-fn-action
+  (is (= "[1] = ACTION_LAYER_MOMENTARY(2)"
+         (sut/compile-fn-action {:fn/index 1
+                                 :action/type :layer/momentary
+                                 :layer/index 2})))
+
+  (is (= "[1] = ACTION_LAYER_ON(2, 1)"
+         (sut/compile-fn-action {:fn/index 1
+                                 :action/type :layer/on
+                                 :layer/index 2})))
+
+  (is (= "[3] = ACTION_LAYER_OFF(1, 1)"
+         (sut/compile-fn-action {:fn/index 3
+                                 :action/type :layer/off
+                                 :layer/index 1})))
+
+  (is (= "[5] = ACTION_FUNCTION(FOO)"
+         (sut/compile-fn-action {:fn/index 5
+                                 :action/type :function
+                                 :function/name "FOO"}))))
+
 (deftest test-compiler
   (is (= "" (sut/compile [{}]))))
