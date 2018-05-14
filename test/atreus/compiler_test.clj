@@ -9,7 +9,17 @@
 
   (testing "regular characters"
     (is (= "KC_A" (sut/binding->key-symbol \a)))
-    (is (= "KC_B" (sut/binding->key-symbol \b))))
+    (is (= "KC_B" (sut/binding->key-symbol \b)))
+    (is (= "KC_SPACE"  (sut/binding->key-symbol \ )))
+    (is (= "KC_SCOLON" (sut/binding->key-symbol \;)))
+    (is (= "KC_QUOTE"  (sut/binding->key-symbol \')))
+    (is (= "KC_COMMA" (sut/binding->key-symbol \,)))
+    (is (= "KC_DOT"  (sut/binding->key-symbol \.)))
+    (is (= "KC_SLASH" (sut/binding->key-symbol \/)))
+    (is (= "KC_BSLASH" (sut/binding->key-symbol \\)))
+    (is (= "KC_GRAVE"  (sut/binding->key-symbol \`)))
+    (is (= "KC_MINUS" (sut/binding->key-symbol \-)))
+    (is (= "KC_EQUAL" (sut/binding->key-symbol \=))))
 
   (testing "modifiers"
     (is (= "KC_LSHIFT" (sut/binding->key-symbol :lshift)))
@@ -26,21 +36,21 @@
   (testing "special characters"
     (is (= "KC_CAPSLOCK"   (sut/binding->key-symbol :caps-lock)))
     (is (= "KC_NUMLOCK"    (sut/binding->key-symbol :num-lock)))
-    (is (= "KC_SCROLLLOCK" (sut/binding->key-symbol :scroll-lock)))
+    (is (= "KC_SLCK" (sut/binding->key-symbol :scroll-lock)))
 
-    (is (= "KC_HOME"   (sut/binding->key-symbol :home)))
-    (is (= "KC_END"    (sut/binding->key-symbol :end)))
-    (is (= "KC_PGUP"   (sut/binding->key-symbol :page-up))) ;;;
-    (is (= "KC_PGDOWN" (sut/binding->key-symbol :page-down))) ;;;
+    (is (= "KC_HOME" (sut/binding->key-symbol :home)))
+    (is (= "KC_END"  (sut/binding->key-symbol :end)))
+    (is (= "KC_PGUP" (sut/binding->key-symbol :page-up)))
+    (is (= "KC_PGDOWN" (sut/binding->key-symbol :page-down)))
 
     (is (= "KC_INSERT" (sut/binding->key-symbol :insert)))
     (is (= "KC_DELETE" (sut/binding->key-symbol :delete)))
     (is (= "KC_ENTER"  (sut/binding->key-symbol :enter)))
     (is (= "KC_ESCAPE" (sut/binding->key-symbol :escape)))
-    (is (= "KC_BSPACE" (sut/binding->key-symbol :backspace))) ;;;
+    (is (= "KC_BSPACE" (sut/binding->key-symbol :backspace)))
 
     (is (= "KC_PAUSE"   (sut/binding->key-symbol :pause)))
-    (is (= "KC_PSCREEN" (sut/binding->key-symbol :print-screen))) ;;;
+    (is (= "KC_PSCREEN" (sut/binding->key-symbol :print-screen)))
 
     (is (= "KC_TAB"  (sut/binding->key-symbol :tab)))
     (is (= "KC_MENU" (sut/binding->key-symbol :menu)))

@@ -6,14 +6,25 @@
 
 (def ^:private
   renames
-  {:lsuper       :lgui
-   :rsuper       :rgui
-   :lcmd         :lgui
-   :rcmd         :rgui
-   :page-up      :pgup
-   :page-down    :pgdown
-   :backspace    :bspace
-   :print-screen :pscreen})
+  {\             "SPACE"
+   \;            "SCOLON"
+   \'            "QUOTE"
+   \,            "COMMA"
+   \.            "DOT"
+   \/            "SLASH"
+   \\            "BSLASH"
+   \-            "MINUS"
+   \=            "EQUAL"
+   \`            "GRAVE"
+   :lsuper       "LGUI"
+   :rsuper       "RGUI"
+   :lcmd         "LGUI"
+   :rcmd         "RGUI"
+   :page-up      "PGUP"
+   :page-down    "PGDOWN"
+   :backspace    "BSPACE"
+   :scroll-lock  "SLCK"
+   :print-screen "PSCREEN"})
 
 (declare binding->key-symbol)
 
@@ -27,19 +38,22 @@
   [_]
   "KC_NO")
 
+(defn- key-symbol-for [k f]
+  (str "KC_" (str/upper-case (get renames k (f k)))))
+
 (defmethod -binding->key-symbol :character
   [binding]
-  (str "KC_" (str/upper-case binding)))
+  (key-symbol-for binding identity))
 
 (defmethod -binding->key-symbol :modifier
   [binding]
-  (str "KC_" (str/upper-case (name (get renames binding binding)))))
+  (key-symbol-for binding name))
 
 (defmethod -binding->key-symbol :special-characters
   [binding]
-  (str "KC_" (str/upper-case (str/replace (name (get renames binding binding))
-                                          "-"
-                                          ""))))
+  (key-symbol-for binding #(str/replace (name %)
+                                        "-"
+                                        "")))
 
 (def ^:private
   modifier-macro
