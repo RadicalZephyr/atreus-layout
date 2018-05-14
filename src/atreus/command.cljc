@@ -19,15 +19,14 @@
                               :home :end
                               :page-up :page-down
                               :menu :print-screen
-                              :scroll-lock :pause
-                              :num-lock :caps-lock})
-
-(s/def ::special #{:power :sleep
-                   :wake :mute
-                   :volume-up :volume-down
-                   :next-track :prev-track
-                   :stop :play-pause
-                   :select :eject})
+                              :pause :scroll-lock
+                              :num-lock :caps-lock
+                              :power :sleep
+                              :wake :mute
+                              :volume-up :volume-down
+                              :next-track :prev-track
+                              :stop :play-pause
+                              :select :eject})
 
 (s/def ::mouse #{:mouse-up :mouse-down
                  :mouse-left :mouse-right
@@ -45,7 +44,6 @@
 (s/def :atreus/command (s/or :character           ::character
                              :modifier            ::modifier
                              :special-characters  ::special-characters
-                             :special             ::special
                              :mouse               ::mouse
                              :composite           ::composite))
 

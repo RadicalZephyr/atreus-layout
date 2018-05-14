@@ -23,7 +23,6 @@
    :page-up      "PGUP"
    :page-down    "PGDOWN"
    :backspace    "BSPACE"
-   :scroll-lock  "SLCK"
    :print-screen "PSCREEN"})
 
 (declare binding->key-symbol)
