@@ -1,7 +1,5 @@
 (ns atreus.ui.layer
   (:require [re-frame.core :as re-frame]
-            [clairvoyant.core :refer-macros [trace-forms]]
-            [re-frame-tracer.core :refer [tracer]]
             [clojure.spec.alpha :as s]
             [atreus.command]
             [atreus.ui.base :as base]))

@@ -1,40 +1,36 @@
 (ns atreus.ui.modal
   (:require [clojure.string :as str]
-            [re-frame.core :as re-frame]
-            [clairvoyant.core :refer-macros [trace-forms]]
-            [re-frame-tracer.core :refer [tracer]]))
+            [re-frame.core :as re-frame]))
 
 (defn setup! []
   ;; Event Handlers
-  (trace-forms {:tracer (tracer :color "green")}
-    (re-frame/reg-event-db
-     :open-modal
-     (fn open-modal-event [db [_ content]]
-       (-> db
-           (assoc-in [:modal-options :show] true)
-           (assoc :modal-content content))))
+  (re-frame/reg-event-db
+   :open-modal
+   (fn open-modal-event [db [_ content]]
+     (-> db
+         (assoc-in [:modal-options :show] true)
+         (assoc :modal-content content))))
 
-    (re-frame/reg-event-db
-     :close-modal
-     (fn close-modal-event [db _]
-       (assoc-in db [:modal-options :show] false)))
+  (re-frame/reg-event-db
+   :close-modal
+   (fn close-modal-event [db _]
+     (assoc-in db [:modal-options :show] false)))
 
-    (re-frame/reg-event-db
-     :set-modal-options
-     (fn set-modal-options-event [db [_ options]]
-       (assoc db :modal-options options))))
+  (re-frame/reg-event-db
+   :set-modal-options
+   (fn set-modal-options-event [db [_ options]]
+     (assoc db :modal-options options)))
 
   ;; Subscriptions
-  (trace-forms {:tracer (tracer :color "brown")}
-    (re-frame/reg-sub
-     :modal-content
-     (fn modal-content-sub [db _]
-       (:modal-content db)))
+  (re-frame/reg-sub
+   :modal-content
+   (fn modal-content-sub [db _]
+     (:modal-content db)))
 
-    (re-frame/reg-sub
-     :modal-options
-     (fn modal-options-sub [db _]
-       (:modal-options db)))))
+  (re-frame/reg-sub
+   :modal-options
+   (fn modal-options-sub [db _]
+     (:modal-options db))))
 
 (def ^:private
   modal-defaults

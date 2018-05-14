@@ -24,8 +24,6 @@
                     [compojure "1.6.1"]
                     [devcards "0.2.4" :exclusions
                      [org.clojure/clojurescript]]
-                    [day8/re-frame-tracer "0.1.1-SNAPSHOT"]
-                    [org.clojars.stumitchell/clairvoyant "0.2.0"]
                     [radicalzephyr/ring.middleware.logger "0.6.0"
                      :exclusions [[org.slf4j/slf4j-log4j12 :extension "jar"]]]
                     [metosin/boot-alt-test "0.3.2"]
@@ -51,7 +49,7 @@
  '[adzerk.boot-cljs      :refer [cljs]]
  '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
  '[adzerk.boot-reload    :refer [reload]]
- '[metosin.boot-alt-test      :refer [alt-test]]
+ '[metosin.boot-alt-test :refer [alt-test]]
  '[pandeiro.boot-http    :refer [serve]]
  '[crisptrutski.boot-cljs-test :refer [test-cljs]]
  '[powerlaces.boot-cljs-devtools :refer [cljs-devtools]]
