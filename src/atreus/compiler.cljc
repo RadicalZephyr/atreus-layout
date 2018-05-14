@@ -6,13 +6,13 @@
 
 (def ^:private
   renames
-  {:lsuper :lgui
-   :rsuper :rgui
-   :lcmd :lgui
-   :rcmd :rgui
-   :page-up :pgup
-   :page-down :pgdown
-   :backspace :bspace
+  {:lsuper       :lgui
+   :rsuper       :rgui
+   :lcmd         :lgui
+   :rcmd         :rgui
+   :page-up      :pgup
+   :page-down    :pgdown
+   :backspace    :bspace
    :print-screen :pscreen})
 
 (declare binding->key-symbol)
