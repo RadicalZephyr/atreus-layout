@@ -74,6 +74,11 @@
                       (range 42)))
        ")"))
 
+(defn compile-layers [layers]
+  (str "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\n  "
+       (str/join ",\n  " (map compile-layer layers))
+       "\n};"))
+
 (defmulti -compile-fn-action :action/type)
 
 (defmethod -compile-fn-action :layer/momentary

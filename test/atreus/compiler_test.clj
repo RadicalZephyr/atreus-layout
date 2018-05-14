@@ -89,6 +89,14 @@
           (re-seq #"KC_NO"
                   (sut/compile-layer {}))))))
 
+(deftest test-compile-layers
+  (let [res (sut/compile-layers [{}])]
+    (is (= (str "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\n"
+                "  KEYMAP(")
+           (subs res 0 72)))
+    (is (= (str ")\n};")
+           (subs res (- (count res) 4))))))
+
 (deftest test-compile-fn-action
   (is (= "[1] = ACTION_LAYER_MOMENTARY(2)"
          (sut/compile-fn-action {:fn/index 1
