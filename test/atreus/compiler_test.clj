@@ -110,5 +110,24 @@
                                  :action/type :function
                                  :function/name "FOO"}))))
 
+(deftest test-compile-fn-actions
+  (is (= (str "const uint16_t PROGMEM fn_actions[] = {\n"
+              "  [0] = ACTION_FUNCTION(BOOTLOADER)\n"
+              "};")
+         (sut/compile-fn-actions [{:fn/index 0
+                                   :action/type :function
+                                   :function/name "BOOTLOADER"}])))
+
+  (is (= (str "const uint16_t PROGMEM fn_actions[] = {\n"
+              "  [0] = ACTION_FUNCTION(BOOTLOADER),\n"
+              "  [1] = ACTION_FUNCTION(FOO)\n"
+              "};")
+         (sut/compile-fn-actions [{:fn/index 0
+                                   :action/type :function
+                                   :function/name "BOOTLOADER"}
+                                  {:fn/index 1
+                                   :action/type :function
+                                   :function/name "FOO"}]))))
+
 (deftest test-compiler
   (is (= "" (sut/compile [{}]))))

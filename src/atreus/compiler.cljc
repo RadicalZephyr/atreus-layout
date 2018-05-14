@@ -98,5 +98,11 @@
        "] = ACTION_"
        (-compile-fn-action action)))
 
+(defn compile-fn-actions [actions]
+  (str "const uint16_t PROGMEM fn_actions[] = {\n  "
+       (str/join ",\n  "
+                 (map compile-fn-action actions))
+       "\n};"))
+
 (defn compile [layout]
   "")
