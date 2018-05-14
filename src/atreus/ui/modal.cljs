@@ -1,24 +1,28 @@
 (ns atreus.ui.modal
   (:require [clojure.string :as str]
-            [re-frame.core :as re-frame]))
+            [re-frame.core :as re-frame]
+            [day8.re-frame.tracing :refer-macros [fn-traced]]))
 
 (defn setup! []
   ;; Event Handlers
   (re-frame/reg-event-db
    :open-modal
-   (fn open-modal-event [db [_ content]]
+   (fn-traced
+    open-modal-event [db [_ content]]
      (-> db
          (assoc-in [:modal-options :show] true)
          (assoc :modal-content content))))
 
   (re-frame/reg-event-db
    :close-modal
-   (fn close-modal-event [db _]
+   (fn-traced
+    close-modal-event [db _]
      (assoc-in db [:modal-options :show] false)))
 
   (re-frame/reg-event-db
    :set-modal-options
-   (fn set-modal-options-event [db [_ options]]
+   (fn-traced
+    set-modal-options-event [db [_ options]]
      (assoc db :modal-options options)))
 
   ;; Subscriptions

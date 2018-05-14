@@ -19,6 +19,10 @@
                     [cljsjs/react "16.3.2-0"]
                     [cljsjs/react-dom "16.3.2-0"]
 
+                    ;; Tracing
+                    [day8.re-frame/re-frame-10x "0.3.3-react16" :scope "test"]
+                    [day8.re-frame/tracing "0.5.1" :scope "test"]
+
                     ;; Boot dev environment
                     [ring "1.6.3"]
                     [compojure "1.6.1"]
@@ -71,7 +75,9 @@
   (task-options! cljs {:optimizations :none
                        :source-map true
                        :compiler-options {:devcards true
-                                          :closure-defines {"clairvoyant.core.devmode" true}}}
+                                          :preloads '[day8.re-frame-10x.preload]
+                                          :closure-defines {"re_frame.trace.trace_enabled_QMARK_"        true
+                                                            "day8.re_frame.tracing.trace_enabled_QMARK_" true}}}
                  reload {:asset-path "public"}
                  serve {:handler 'atreus.layout/handler
                         :port 8080})
