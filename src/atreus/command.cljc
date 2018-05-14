@@ -42,12 +42,12 @@
 (s/def ::composite (s/cat :character ::character
                           :modifiers (s/+ ::modifier)))
 
-(s/def :atreus/command (s/or :character ::character
-                             :modifier ::modifier
-                             :special-characters ::special-characters
-                             :special ::special
-                             :mouse ::mouse
-                             :composite ::composite))
+(s/def :atreus/command (s/or :character           ::character
+                             :modifier            ::modifier
+                             :special-characters  ::special-characters
+                             :special             ::special
+                             :mouse               ::mouse
+                             :composite           ::composite))
 
 (defn command? [c]
   (s/valid? :atreus/command c))
