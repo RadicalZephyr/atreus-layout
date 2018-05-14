@@ -75,5 +75,19 @@
 
     (is (= "CTRL(SHIFT(KC_A))" (sut/binding->key-symbol [\a :lshift :lctrl])))))
 
+(deftest test-compile-layer
+  (is (= "KEYMAP(KC_NO,"
+         (subs (sut/compile-layer {})
+               0 13)))
+
+  (is (= "KEYMAP(KC_A, KC_B"
+         (subs (sut/compile-layer {0 \a 1 \b})
+               0 17)))
+
+  (is (= 42
+         (count
+          (re-seq #"KC_NO"
+                  (sut/compile-layer {}))))))
+
 (deftest test-compiler
   (is (= "" (sut/compile [{}]))))

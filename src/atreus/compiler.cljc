@@ -66,5 +66,13 @@
 (defn binding->key-symbol [binding]
   (-binding->key-symbol binding))
 
+(defn compile-layer [layer]
+  (str "KEYMAP("
+       (str/join ", "
+                 (map #(binding->key-symbol
+                        (get layer % []))
+                      (range 42)))
+       ")"))
+
 (defn compile [layout]
   "")
