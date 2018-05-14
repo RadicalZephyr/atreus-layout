@@ -4,6 +4,9 @@
 
 
 (deftest test-binding->key-symbol
+  (testing "an unbound or invalid binding"
+    (is (= "KC_NO" (sut/binding->key-symbol nil))))
+
   (testing "regular characters"
     (is (= "KC_A" (sut/binding->key-symbol \a)))
     (is (= "KC_B" (sut/binding->key-symbol \b))))

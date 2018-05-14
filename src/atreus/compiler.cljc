@@ -19,7 +19,13 @@
 
 (defmulti -binding->key-symbol
   (fn [binding]
-    (first (s/conform :atreus/command binding))))
+    (let [res (s/conform :atreus/command binding)]
+      (when-not (s/invalid? res)
+        (first res)))))
+
+(defmethod -binding->key-symbol nil
+  [_]
+  "KC_NO")
 
 (defmethod -binding->key-symbol :character
   [binding]
