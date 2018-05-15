@@ -25,15 +25,17 @@
 
   [:area {:cursor "pointer"}]
 
-  [:.layer-label {:position "absolute"
-                   :z-index -1}]
+  [:.layer-label {:height "50px"
+                  :position "absolute"
+                  :width "50px"
+                  :z-index -1}]
 
   [:svg.label {:width "40px"
-               :height "40px"}]
+               :height "40px"
+               :margin "5px"}]
 
   [:#com-rigsomelight-devcards-main
-   [:svg.label {:border "solid black 1px"
-                :margin "5px"}]]
+   [:svg.label {:border "solid black 1px"}]]
 
   [:.test {:background-color "tomato"}]
 
