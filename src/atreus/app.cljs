@@ -97,3 +97,7 @@
 (defn ^:export start! []
   (setup!)
   (init-render!))
+
+(defn dev-reload []
+  (re-frame/clear-subscription-cache!)
+  (start!))

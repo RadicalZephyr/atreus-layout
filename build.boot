@@ -77,7 +77,8 @@
                                           :preloads '[day8.re-frame-10x.preload]
                                           :closure-defines {"re_frame.trace.trace_enabled_QMARK_"        true
                                                             "day8.re_frame.tracing.trace_enabled_QMARK_" true}}}
-                 reload {:asset-path "public"}
+                 reload {:asset-path "public"
+                         :on-jsload 'atreus.app/dev-reload}
                  serve {:handler 'atreus.layout/handler
                         :port 8080})
   identity)
