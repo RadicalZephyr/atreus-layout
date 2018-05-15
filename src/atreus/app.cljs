@@ -83,12 +83,15 @@
    (reagent/as-element
     [ant/row
      [ant/col {:span 12}
-      [:h2.banner-header "Atreus Layout"]]])])
+      [:h2.banner-header "Atreus Layout"]]
+     [ant/col {:span 1 :offset 11}
+      [ant/button {:icon "download"
+                   :size "large"
+                   :on-click #(re-frame/dispatch [:compile-layout])}]]])])
 
 (defn menu []
   [ant/menu {:mode "inline" :theme "dark" :style {:height "100%"}}
-   [ant/menu-item {:disable true} "Menu"]
-   [ant/menu-item {:on-click #(re-frame/dispatch [:compile-layout])} "Download"]])
+   [ant/menu-item {:disabled true} "Layer"]])
 
 (defn content []
   [ant/layout-content {:class "content-area"}
