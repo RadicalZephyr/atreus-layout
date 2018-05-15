@@ -8,10 +8,14 @@
 
   [:body {:font-family "Helvetica"}]
 
-  [:#app-content {:display "flex"
-                  :justify-content "center"
-                  :align-items "center"
-                  :min-height "100vh"}]
+  [:.banner {:color "#000"
+             :background-color "#d46b08"}]
+
+  [:.banner-header {:color "#000"}]
+
+  [:.content-area {:min-height "100vh"
+                   :background "#fff"
+                   :padding "40px"}]
 
   [:.layer-root {:position "relative"
                   :z-index 1}]

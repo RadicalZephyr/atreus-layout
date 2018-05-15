@@ -19,6 +19,7 @@
     [:link {:rel "mask-icon" :href "/safari-pinned-tab.svg" :color "#5bbad5"}]
     [:meta {:name "theme-color" :content "#ffffff"}]
     (page/include-css "/css/normalize.css"
+                      "/css/antd.css"
                       "/css/app.css")]
    [:body
     [:div.row

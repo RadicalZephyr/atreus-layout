@@ -8,6 +8,7 @@
                     [re-frame "0.10.5" :exclusions
                      [org.clojure/clojurescript]]
                     [reagent "0.7.0"]
+                    [antizer "0.2.2"]
 
 
                     ;; Dev/Release build code-gen
@@ -92,10 +93,21 @@
 
 ;; Low-level do-the-stuff tasks
 
+(deftask unpack-antd
+  "Extract antd css assets"
+  []
+  (comp
+   (uber :include #{#"^cljsjs/antd"})
+   (sift :move {#"^cljsjs/antd/development/antd\.inc\.css" "public/css/antd.css"
+                #"^cljsjs/antd/production/antd\.min\.inc\.css" "public/css/antd.min.css"})
+   (sift :include #{#"^cljsjs/antd"}
+         :invert true)))
+
 (deftask build
   "Compile clojurescript->js and garden->css"
   []
   (comp (notify :audible true)
+        (unpack-antd)
         (garden :styles-var 'atreus.styles/screen
                 :output-to "public/css/app.css")
         (cljs)))

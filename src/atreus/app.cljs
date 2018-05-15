@@ -1,5 +1,6 @@
 (ns atreus.app
   (:require [reagent.core :as reagent]
+            [antizer.reagent :as ant]
             [re-frame.core :as re-frame]
             [atreus.ui.base :as base]
             [atreus.ui.modal :as modal]
@@ -77,17 +78,33 @@
    [:h3 "Press a key"]
    "To assign that key to this button."])
 
+(defn header []
+  [ant/layout-header {:class "banner"}
+   (reagent/as-element
+    [ant/row
+     [ant/col {:span 12}
+      [:h2.banner-header "Atreus Layout"]]])])
+
+(defn menu []
+  [ant/menu {:mode "inline" :theme "dark" :style {:height "100%"}}
+   [ant/menu-item {:disable true} "Menu"]
+   [ant/menu-item {:on-click #(re-frame/dispatch [:compile-layout])} "Download"]])
+
 (defn main-panel []
   [:div
    [modal]
-   [:div#app-content
-    [layer/layer-background
-     #(re-frame/dispatch
-       [:open-modal [character-capture %1]])
-     @(re-frame/subscribe [:current-bindings])]
-    [:input {:type "button"
-             :value "Compile!"
-             :onClick #(re-frame/dispatch [:compile-layout])}]]])
+   [ant/locale-provider {:locale (ant/locales "en_US")}
+    [ant/layout
+     [header]
+     [ant/layout
+      [ant/layout-sider
+       [menu]]
+      [ant/layout {:style {:width "60%"}}
+       [ant/layout-content {:class "content-area"}
+        [layer/layer-background
+         #(re-frame/dispatch
+           [:open-modal [character-capture %1]])
+         @(re-frame/subscribe [:current-bindings])]]]]]]])
 
 (defn init-render! []
   (re-frame/dispatch [:initialise-db])
