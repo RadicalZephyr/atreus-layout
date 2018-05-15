@@ -10,14 +10,14 @@
    (fn-traced
     open-modal-event [db [_ content]]
      (-> db
-         (assoc-in [:modal-options :show] true)
+         (assoc-in [:modal-options :visible] true)
          (assoc :modal-content content))))
 
   (re-frame/reg-event-db
    :close-modal
    (fn-traced
     close-modal-event [db _]
-     (assoc-in db [:modal-options :show] false)))
+     (assoc-in db [:modal-options :visible] false)))
 
   (re-frame/reg-event-db
    :set-modal-options
@@ -43,7 +43,7 @@
    :max-width 600
    :min-width 280
    :overlay true
-   :show false
+   :visible false
    :close-fn #(re-frame/dispatch [:close-modal])})
 
 (def ^:private modal-container-id

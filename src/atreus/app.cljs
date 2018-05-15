@@ -67,9 +67,9 @@
      (get-in current-layout [layer-index binding-index]))))
 
 (defn modal []
-  [modal/modal-root
-   @(re-frame/subscribe [:modal-content])
-   @(re-frame/subscribe [:modal-options])])
+  [ant/modal
+   @(re-frame/subscribe [:modal-options])
+   @(re-frame/subscribe [:modal-content])])
 
 ;; TODO: still have to implement capturing modifier + key combinations
 (defn character-capture [index]
@@ -91,20 +91,19 @@
    [ant/menu-item {:on-click #(re-frame/dispatch [:compile-layout])} "Download"]])
 
 (defn main-panel []
-  [:div
-   [modal]
-   [ant/locale-provider {:locale (ant/locales "en_US")}
+  [ant/locale-provider {:locale (ant/locales "en_US")}
+   [ant/layout
+    [modal]
+    [header]
     [ant/layout
-     [header]
-     [ant/layout
-      [ant/layout-sider
-       [menu]]
-      [ant/layout {:style {:width "60%"}}
-       [ant/layout-content {:class "content-area"}
-        [layer/layer-background
-         #(re-frame/dispatch
-           [:open-modal [character-capture %1]])
-         @(re-frame/subscribe [:current-bindings])]]]]]]])
+     [ant/layout-sider
+      [menu]]
+     [ant/layout {:style {:width "60%"}}
+      [ant/layout-content {:class "content-area"}
+       [layer/layer-background
+        #(re-frame/dispatch
+          [:open-modal [character-capture %1]])
+        @(re-frame/subscribe [:current-bindings])]]]]]])
 
 (defn init-render! []
   (re-frame/dispatch [:initialise-db])
