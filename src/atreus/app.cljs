@@ -112,7 +112,7 @@
 
 ;; TODO: still have to implement capturing modifier + key combinations
 (defn character-capture [index]
-  [base/register-dom-event js/document "keydown"
+  [base/register-dom-event js/document "keyup"
    #(re-frame/dispatch [:set-key index (transform-event %)])
    [:h3 "Press a key"]
    "To assign that key to this button."])
