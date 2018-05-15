@@ -2,6 +2,7 @@
   (:refer-clojure :exclude [compile])
   (:require [clojure.string :as str]
             [clojure.spec.alpha :as s]
+            [clojure.walk :as walk]
             [atreus.command]))
 
 (def ^:private
@@ -126,8 +127,15 @@
                  (map compile-fn-action actions))
        "\n};"))
 
+(defn- add-action-index [idx el]
+  (if (s/valid? :atreus.command/action el)
+    (assoc el :action/index (swap! idx inc))
+    el))
+
 (defn process [layout]
-  (let [actions (->> layout
+  (let [cur-idx (atom -1) ;; start at -1 because swap! returns the new value
+        layout (walk/prewalk #(add-action-index cur-idx %) layout)
+        actions (->> layout
                      first
                      (filter #(s/valid? :atreus.command/action (second %)))
                      (map second))]

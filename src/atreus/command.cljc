@@ -45,8 +45,12 @@
 
 (s/def :action/type #{:fn :layer/momentary :layer/on :layer/off})
 
-(s/def ::action (s/keys :req #{:action/index :action/type}
-                        :opt #{:fn/name :layer/index}))
+(s/def :fn/name string?)
+
+(s/def :layer/index integer?)
+
+(s/def ::action (s/keys :req #{:action/type}
+                        :opt #{:action/index :fn/name :layer/index}))
 
 (s/def :atreus/command (s/or :character           ::character
                              :modifier            ::modifier

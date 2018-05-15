@@ -164,7 +164,7 @@
           "const uint16_t PROGMEM fn_actions[] = {\n"
           "  [0] = ACTION_FUNCTION(BOOTLOADER)\n"
           "};")
-         (let [bootloader {:action/index 0 :action/type :fn :fn/name "BOOTLOADER"}]
+         (let [bootloader {:action/type :fn :fn/name "BOOTLOADER"}]
            (sut/compile [{0 \q 1 \w 2 \e 3 \r 4 \t 5 \y 6 \u 7 \i 8 \o 9 \p
                           10 \a 11 \s 12 \d 13 \f 14 \g 15 \h 16 \j 17 \k 18 \l 19 \;
                           20 \z 21 \x 22 \c 23 \v 24 \b 25 \n 26 \m 27 \, 28 \. 29 \/
