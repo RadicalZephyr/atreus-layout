@@ -1,6 +1,7 @@
 (ns atreus.compiler-test
   (:require [clojure.test :refer :all]
-            [atreus.compiler :as sut]))
+            [atreus.compiler :as sut]
+            [clojure.spec.alpha :as s]))
 
 
 (deftest test-binding->key-symbol
@@ -151,3 +152,21 @@
                                   {:action/index 1
                                    :action/type :fn
                                    :fn/name "FOO"}]))))
+
+(deftest test-compile
+  (is (= (str
+          "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\n"
+          "  KEYMAP(KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P,"
+          " KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCOLON,"
+          " KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMMA, KC_DOT, KC_SLASH,"
+          " KC_ESCAPE, KC_TAB, KC_LGUI, KC_LSHIFT, KC_BSPACE, KC_LCTRL, KC_LALT, KC_SPACE, KC_FN0, KC_MINUS, KC_QUOTE, KC_ENTER)\n"
+          "};\n"
+          "const uint16_t PROGMEM fn_actions[] = {\n"
+          "  [0] = ACTION_FUNCTION(BOOTLOADER)\n"
+          "};")
+         (let [bootloader {:action/index 0 :action/type :fn :fn/name "BOOTLOADER"}]
+           (sut/compile [{0 \q 1 \w 2 \e 3 \r 4 \t 5 \y 6 \u 7 \i 8 \o 9 \p
+                          10 \a 11 \s 12 \d 13 \f 14 \g 15 \h 16 \j 17 \k 18 \l 19 \;
+                          20 \z 21 \x 22 \c 23 \v 24 \b 25 \n 26 \m 27 \, 28 \. 29 \/
+                          30 :escape 31 :tab 32 :lgui 33 :lshift 34 :backspace 35 :lctrl
+                          36 :lalt 37 \  38 bootloader 39 \- 40 \' 41 :enter}])))))

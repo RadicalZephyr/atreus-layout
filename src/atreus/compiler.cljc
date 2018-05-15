@@ -126,5 +126,16 @@
                  (map compile-fn-action actions))
        "\n};"))
 
+(defn process [layout]
+  (let [actions (->> layout
+                     first
+                     (filter #(s/valid? :atreus.command/action (second %)))
+                     (map second))]
+    [layout actions]))
+
 (defn compile [layout]
-  "")
+  (let [[layers actions] (process layout)]
+    (str
+     (compile-layers layers)
+     "\n"
+     (compile-fn-actions actions))))
