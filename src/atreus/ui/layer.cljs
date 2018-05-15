@@ -82,7 +82,7 @@
                             side])
                      (coords x-y side (deltas :stack)))))
 
-(defn layer-background [click-handler bindings]
+(defn background [click-handler bindings]
   (let [layer-id (gensym "layer")]
     [:div.layer-root
      [:map {:name layer-id}

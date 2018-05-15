@@ -95,9 +95,9 @@
 
 (defn content []
   [ant/layout-content {:class "content-area"}
-   [layer/layer-background
+   [layer/background
     #(re-frame/dispatch
-      [:open-modal [character-capture %1]])
+      [:open-modal [character-capture %]])
     @(re-frame/subscribe [:current-bindings])]])
 
 (defn main-panel []

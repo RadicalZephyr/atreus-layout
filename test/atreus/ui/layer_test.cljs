@@ -44,7 +44,7 @@
                                   (swap! data assoc
                                          :x (- (.-clientX %) (.-left root-rect))
                                          :y (- (.-clientY %) (.-top root-rect))))}
-     [sut/layer-background (fn [index side]
+     [sut/background (fn [index side]
                              (swap! data assoc
                                     :index index
                                     :side side))
@@ -56,7 +56,7 @@
 (defcard-rg atreus-layer-with-labels
   (fn [data _]
     [:div
-     [sut/layer-background (fn [index side]
+     [sut/background (fn [index side]
                              (swap! data assoc-in [:bindings index] (str index)))
       (:bindings @data)]])
   (r/atom {:bindings {}}))
