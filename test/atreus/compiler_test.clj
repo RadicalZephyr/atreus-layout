@@ -83,7 +83,12 @@
     (is (= "ALT(KC_A)"   (sut/binding->key-symbol [\a :lalt])))
     (is (= "RALT(KC_A)"  (sut/binding->key-symbol [\a :ralt])))
 
-    (is (= "CTRL(SHIFT(KC_A))" (sut/binding->key-symbol [\a :lshift :lctrl])))))
+    (is (= "CTRL(SHIFT(KC_A))" (sut/binding->key-symbol [\a :lshift :lctrl]))))
+
+  (testing "actions"
+    (is (= "KC_FN0" (sut/binding->key-symbol {:action/index 0 :action/type :fn})))
+    (is (= "KC_FN1" (sut/binding->key-symbol
+                     {:action/index 1 :action/type :layer/momentary})))))
 
 (deftest test-compile-layer
   (is (= "KEYMAP(KC_NO,"
@@ -109,43 +114,40 @@
 
 (deftest test-compile-fn-action
   (is (= "[1] = ACTION_LAYER_MOMENTARY(2)"
-         (sut/compile-fn-action {:fn/index 1
+         (sut/compile-fn-action {:action/index 1
                                  :action/type :layer/momentary
                                  :layer/index 2})))
 
   (is (= "[1] = ACTION_LAYER_ON(2, 1)"
-         (sut/compile-fn-action {:fn/index 1
+         (sut/compile-fn-action {:action/index 1
                                  :action/type :layer/on
                                  :layer/index 2})))
 
   (is (= "[3] = ACTION_LAYER_OFF(1, 1)"
-         (sut/compile-fn-action {:fn/index 3
+         (sut/compile-fn-action {:action/index 3
                                  :action/type :layer/off
                                  :layer/index 1})))
 
   (is (= "[5] = ACTION_FUNCTION(FOO)"
-         (sut/compile-fn-action {:fn/index 5
-                                 :action/type :function
-                                 :function/name "FOO"}))))
+         (sut/compile-fn-action {:action/index 5
+                                 :action/type :fn
+                                 :fn/name "FOO"}))))
 
 (deftest test-compile-fn-actions
   (is (= (str "const uint16_t PROGMEM fn_actions[] = {\n"
               "  [0] = ACTION_FUNCTION(BOOTLOADER)\n"
               "};")
-         (sut/compile-fn-actions [{:fn/index 0
-                                   :action/type :function
-                                   :function/name "BOOTLOADER"}])))
+         (sut/compile-fn-actions [{:action/index 0
+                                   :action/type :fn
+                                   :fn/name "BOOTLOADER"}])))
 
   (is (= (str "const uint16_t PROGMEM fn_actions[] = {\n"
               "  [0] = ACTION_FUNCTION(BOOTLOADER),\n"
               "  [1] = ACTION_FUNCTION(FOO)\n"
               "};")
-         (sut/compile-fn-actions [{:fn/index 0
-                                   :action/type :function
-                                   :function/name "BOOTLOADER"}
-                                  {:fn/index 1
-                                   :action/type :function
-                                   :function/name "FOO"}]))))
-
-(deftest test-compiler
-  (is (= "" (sut/compile [{}]))))
+         (sut/compile-fn-actions [{:action/index 0
+                                   :action/type :fn
+                                   :fn/name "BOOTLOADER"}
+                                  {:action/index 1
+                                   :action/type :fn
+                                   :fn/name "FOO"}]))))

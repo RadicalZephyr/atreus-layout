@@ -41,11 +41,19 @@
 (s/def ::composite (s/cat :character ::character
                           :modifiers (s/+ ::modifier)))
 
+(s/def :action/index integer?)
+
+(s/def :action/type #{:fn :layer/momentary :layer/on :layer/off})
+
+(s/def ::action (s/keys :req #{:action/index :action/type}
+                        :opt #{:fn/name :layer/index}))
+
 (s/def :atreus/command (s/or :character           ::character
                              :modifier            ::modifier
                              :special-characters  ::special-characters
                              :mouse               ::mouse
-                             :composite           ::composite))
+                             :composite           ::composite
+                             :action              ::action))
 
 (defn command? [c]
   (s/valid? :atreus/command c))

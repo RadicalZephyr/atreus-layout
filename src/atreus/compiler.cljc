@@ -76,6 +76,10 @@
           (binding->key-symbol k)
           mods))
 
+(defmethod -binding->key-symbol :action
+  [f]
+  (str "KC_FN" (:action/index f)))
+
 (defn binding->key-symbol [binding]
   (-binding->key-symbol binding))
 
@@ -106,13 +110,13 @@
   [action]
   (str "LAYER_OFF(" (:layer/index action) ", 1)"))
 
-(defmethod -compile-fn-action :function
+(defmethod -compile-fn-action :fn
   [action]
-  (str "FUNCTION(" (:function/name action) ")"))
+  (str "FUNCTION(" (:fn/name action) ")"))
 
 (defn compile-fn-action [action]
   (str "["
-       (:fn/index action)
+       (:action/index action)
        "] = ACTION_"
        (-compile-fn-action action)))
 
