@@ -156,7 +156,7 @@
 
      (if (>= 31 layer-count)
        [[ant/menu-item {:key "add-layer"}
-         [:span [ant/icon {:type "plus"}] "Add Layer"]]]
+         [:span [ant/icon {:type "plus-circle"}] "Add Layer"]]]
        []))]
    [ant/layout {:style {:width "60%"}}
     [content]]])
