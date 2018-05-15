@@ -13,12 +13,15 @@
 
   [:.banner-header {:color "#000"}]
 
-  [:.content-area {:min-height "100vh"
+  [:.content-area {:min-height "415px"
+                   :min-width "910px"
                    :background "#fff"
                    :padding "40px"}]
 
-  [:.layer-root {:position "relative"
-                  :z-index 1}]
+  [:.layer-root {:height "335px"
+                 :position "relative"
+                 :width "830px"
+                 :z-index 1}]
 
   [:area {:cursor "pointer"}]
 

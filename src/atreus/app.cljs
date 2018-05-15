@@ -102,14 +102,16 @@
 
 (defn main-panel []
   [ant/locale-provider {:locale (ant/locales "en_US")}
-   [ant/layout
-    [modal]
-    [header]
-    [ant/layout
-     [ant/layout-sider
-      [menu]]
-     [ant/layout {:style {:width "60%"}}
-      [content]]]]])
+   [ant/row {:type "flex" :justify "center"}
+    [ant/col {:span 24}
+     [ant/layout
+      [modal]
+      [header]
+      [ant/layout
+       [ant/layout-sider
+        [menu]]
+       [ant/layout {:style {:width "60%"}}
+        [content]]]]]]])
 
 (defn init-render! []
   (re-frame/dispatch [:initialise-db])
