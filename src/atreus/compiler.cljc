@@ -134,11 +134,14 @@
 
 (defn process [layout]
   (let [cur-idx (atom -1) ;; start at -1 because swap! returns the new value
-        layout (walk/prewalk #(add-action-index cur-idx %) layout)
-        actions (->> layout
-                     first
-                     (filter #(s/valid? :atreus.command/action (second %)))
-                     (map second))]
+        layout (->> layout
+                    (map #(apply merge %))
+                    (walk/prewalk #(add-action-index cur-idx %)))
+        actions (mapcat #(keep (fn [[_ v]]
+                                 (when (s/valid? :atreus.command/action v)
+                                   v))
+                               %)
+                        layout)]
     [layout actions]))
 
 (defn compile [layout]
