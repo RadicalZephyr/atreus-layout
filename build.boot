@@ -7,18 +7,19 @@
 
                     [re-frame "0.10.5" :exclusions
                      [org.clojure/clojurescript]]
-                    [reagent "0.8.0"]
+                    [reagent "0.7.0"]
+
 
                     ;; Dev/Release build code-gen
                     [hiccup "1.0.5"]
                     [garden "1.3.5"]
 
                     ;; Why do I need these?? devcards 0.2.3 is broken...
-                    [cljsjs/react "16.3.2-0"]
-                    [cljsjs/react-dom "16.3.2-0"]
+                    [cljsjs/react "15.6.1-1"]
+                    [cljsjs/react-dom "15.6.1-1"]
 
                     ;; Tracing
-                    [day8.re-frame/re-frame-10x "0.3.3-react16" :scope "test"]
+                    [day8.re-frame/re-frame-10x "0.3.3" :scope "test"]
                     [day8.re-frame/tracing "0.5.1" :scope "test"]
 
                     ;; Boot dev environment
