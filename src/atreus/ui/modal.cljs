@@ -62,8 +62,8 @@
   (let [options (merge modal-defaults options)
         container-classes (cond-> [modal-container-id]
                             (:overlay options) (conj "modal-container--overlay")
-                            (:show options) (conj "modal-container--show"))]
-    (if (:show options)
+                            (:visible options) (conj "modal-container--show"))]
+    (if (:visible options)
       [:div.uber-container
        [:div.scotch-overlay.fade-and-drop.scotch-open]
        [:div.scotch-modal.fade-and-drop.scotch-open
