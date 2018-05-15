@@ -27,17 +27,36 @@
      :binding-index 0
      :current-layout (layer/empty-layout)}))
 
+  (re-frame/reg-event-db
+   :set-layer-index
+   (fn-traced
+    set-layer-index-event
+    [db [_ k]]
+    (assoc db :layer-index k)))
+
+  (re-frame/reg-event-db
+   :add-layer
+   (fn-traced
+    add-layer-event
+    [db _]
+    (let [next-index (count (:current-layout db))]
+      (-> db
+          (assoc :layer-index next-index)
+          (update :current-layout conj [{}])))))
+
   (re-frame/reg-event-fx
    :set-key
    (fn-traced
-    set-key-event [cofx [_ index keyevent]]
+    set-key-event
+    [cofx [_ index keyevent]]
     {:db (assoc-in (:db cofx) [:current-layout 0 0 index] (.-key keyevent))
      :dispatch [:close-modal]}))
 
   (re-frame/reg-event-fx
    :compile-layout
    (fn-traced
-    compile-layout-event [cofx _]
+    compile-layout-event
+    [cofx _]
     (let [content (compiler/compile
                    (get-in cofx [:db :current-layout]))]
       {:download-file ["keymap.c" content]})))
@@ -52,6 +71,12 @@
    :layer-index
    (fn layer-index-sub [db _]
      (:layer-index db)))
+
+  (re-frame/reg-sub
+   :layer-count
+   :<- [:current-layout]
+   (fn layer-count-sub [layers]
+     (count layers)))
 
   (re-frame/reg-sub
    :binding-index
@@ -89,16 +114,34 @@
                    :size "large"
                    :on-click #(re-frame/dispatch [:compile-layout])}]]])])
 
-(defn menu []
-  [ant/menu {:mode "inline" :theme "dark" :style {:height "100%"}}
-   [ant/menu-item {:disabled true} "Layer"]])
-
 (defn content []
   [ant/layout-content {:class "content-area"}
    [layer/background
     #(re-frame/dispatch
       [:open-modal [character-capture %]])
     @(re-frame/subscribe [:current-bindings])]])
+
+(defn menu [layer-index layer-count]
+  [ant/layout
+   [ant/layout-sider
+    (into
+     [ant/menu {:selected-keys [(str layer-index)]
+                :mode "inline"
+                :on-click #(let [k (.-key %)]
+                             (if (= "add-layer" k)
+                               (re-frame/dispatch [:add-layer])
+                               (re-frame/dispatch [:set-layer-index (js/parseInt k)])))
+                :style {:height "100%"}
+                :theme "dark"}
+      [ant/menu-item {:disabled true} "Layers"]]
+     (concat
+      (for [i (range 0 layer-count)]
+        [ant/menu-item {:key (str i)}
+         (str "Layer " (inc i))])
+      [[ant/menu-item {:key "add-layer"}
+        [:span [ant/icon {:type "plus"}] "Add Layer"]]]))]
+   [ant/layout {:style {:width "60%"}}
+    [content]]])
 
 (defn main-panel []
   [ant/locale-provider {:locale (ant/locales "en_US")}
@@ -107,11 +150,9 @@
      [ant/layout
       [modal]
       [header]
-      [ant/layout
-       [ant/layout-sider
-        [menu]]
-       [ant/layout {:style {:width "60%"}}
-        [content]]]]]]])
+      [menu
+       @(re-frame/subscribe [:layer-index])
+       @(re-frame/subscribe [:layer-count])]]]]])
 
 (defn init-render! []
   (re-frame/dispatch [:initialise-db])
