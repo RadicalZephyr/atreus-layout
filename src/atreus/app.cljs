@@ -136,15 +136,17 @@
                                (re-frame/dispatch [:set-layer-index (js/parseInt k)])))
                 :style {:height "100%"}
                 :theme "dark"}
-      [ant/menu-item {:disabled true} "Layers"]]
-     (concat
-      (for [i (range 0 layer-count)]
-        [ant/menu-item {:key (str i)}
-         (str "Layer " (inc i))])
-      (if (>= 31 layer-count)
+      (into
+       [ant/menu-item-group {:class ".layer-header" :title "Layers"}]
+
+       (for [i (range 0 layer-count)]
+         [ant/menu-item {:key (str i)}
+          (str "Layer " (inc i))]))]
+
+     (if (>= 31 layer-count)
        [[ant/menu-item {:key "add-layer"}
          [:span [ant/icon {:type "plus"}] "Add Layer"]]]
-       [])))]
+       []))]
    [ant/layout {:style {:width "60%"}}
     [content]]])
 

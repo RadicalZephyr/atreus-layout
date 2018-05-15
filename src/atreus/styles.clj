@@ -13,6 +13,8 @@
 
   [:.banner-header {:color "#000"}]
 
+  [:.layer-header {:font-size "larger"}]
+
   [:.content-area {:min-height "415px"
                    :min-width "910px"
                    :background "#fff"
