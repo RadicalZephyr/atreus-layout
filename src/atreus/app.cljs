@@ -40,9 +40,11 @@
     add-layer-event
     [db _]
     (let [next-index (count (:current-layout db))]
-      (-> db
-          (assoc :layer-index next-index)
-          (update :current-layout conj [{}])))))
+      (if (>= 31 next-index)
+        (-> db
+            (assoc :layer-index next-index)
+            (update :current-layout conj [{}]))
+        db))))
 
   (re-frame/reg-event-fx
    :set-key
@@ -139,8 +141,10 @@
       (for [i (range 0 layer-count)]
         [ant/menu-item {:key (str i)}
          (str "Layer " (inc i))])
-      [[ant/menu-item {:key "add-layer"}
-        [:span [ant/icon {:type "plus"}] "Add Layer"]]]))]
+      (if (>= 31 layer-count)
+       [[ant/menu-item {:key "add-layer"}
+         [:span [ant/icon {:type "plus"}] "Add Layer"]]]
+       [])))]
    [ant/layout {:style {:width "60%"}}
     [content]]])
 
