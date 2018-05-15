@@ -110,8 +110,8 @@
     (is (= (str "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\n"
                 "  KEYMAP(")
            (subs res 0 72)))
-    (is (= (str ")\n};")
-           (subs res (- (count res) 4))))))
+    (is (= (str ")\n};\n")
+           (subs res (- (count res) 5))))))
 
 (deftest test-compile-fn-action
   (is (= "[1] = ACTION_LAYER_MOMENTARY(2)"
@@ -137,7 +137,7 @@
 (deftest test-compile-fn-actions
   (is (= (str "const uint16_t PROGMEM fn_actions[] = {\n"
               "  [0] = ACTION_FUNCTION(BOOTLOADER)\n"
-              "};")
+              "};\n")
          (sut/compile-fn-actions [{:action/index 0
                                    :action/type :fn
                                    :fn/name "BOOTLOADER"}])))
@@ -145,7 +145,7 @@
   (is (= (str "const uint16_t PROGMEM fn_actions[] = {\n"
               "  [0] = ACTION_FUNCTION(BOOTLOADER),\n"
               "  [1] = ACTION_FUNCTION(FOO)\n"
-              "};")
+              "};\n")
          (sut/compile-fn-actions [{:action/index 0
                                    :action/type :fn
                                    :fn/name "BOOTLOADER"}
@@ -155,15 +155,25 @@
 
 (deftest test-compile
   (is (= (str
+          "#include \"keymap_common.h\"\n"
+          "#include \"light_ws2812.h\"\n\n"
           "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\n"
           "  KEYMAP(KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P,"
           " KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCOLON,"
           " KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMMA, KC_DOT, KC_SLASH,"
           " KC_ESCAPE, KC_TAB, KC_LGUI, KC_LSHIFT, KC_BSPACE, KC_LCTRL, KC_LALT, KC_SPACE, KC_FN0, KC_MINUS, KC_QUOTE, KC_ENTER)\n"
-          "};\n"
+          "};\n\n"
           "const uint16_t PROGMEM fn_actions[] = {\n"
           "  [0] = ACTION_FUNCTION(BOOTLOADER)\n"
-          "};")
+          "};\n\n"
+          "void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)\n"
+          "{\n"
+          "switch (id) {\n"
+          "        case BOOTLOADER:\n"
+          "            bootloader();\n"
+          "        break;\n"
+          "    }\n"
+          "}\n")
          (let [bootloader {:action/type :fn :fn/name "BOOTLOADER"}]
            (sut/compile [[{0 \q 1 \w 2 \e 3 \r 4 \t 5 \y 6 \u 7 \i 8 \o 9 \p
                            10 \a 11 \s 12 \d 13 \f 14 \g 15 \h 16 \j 17 \k 18 \l 19 \;

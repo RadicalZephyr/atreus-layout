@@ -95,7 +95,7 @@
 (defn compile-layers [layers]
   (str "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\n  "
        (str/join ",\n  " (map compile-layer layers))
-       "\n};"))
+       "\n};\n"))
 
 (defmulti -compile-fn-action :action/type)
 
@@ -125,7 +125,7 @@
   (str "const uint16_t PROGMEM fn_actions[] = {\n  "
        (str/join ",\n  "
                  (map compile-fn-action actions))
-       "\n};"))
+       "\n};\n"))
 
 (defn- add-action-index [idx el]
   (if (s/valid? :atreus.command/action el)
@@ -147,6 +147,17 @@
 (defn compile [layout]
   (let [[layers actions] (process layout)]
     (str
+     "#include \"keymap_common.h\"\n"
+     "#include \"light_ws2812.h\"\n\n"
      (compile-layers layers)
      "\n"
-     (compile-fn-actions actions))))
+     (compile-fn-actions actions)
+
+     "\nvoid action_function(keyrecord_t *record, uint8_t id, uint8_t opt)\n"
+     "{\n"
+         "switch (id) {\n"
+     "        case BOOTLOADER:\n"
+     "            bootloader();\n"
+     "        break;\n"
+     "    }\n"
+     "}\n")))
