@@ -60,9 +60,9 @@
 
 (defn label
   ([name]
-   (-label name :rotation/none))
+   (label name :rotation/none))
   ([name rotation]
-   (-label name rotation)))
+   (-label (first name) rotation)))
 
 (defn register-dom-event [target event-name on-key-fn & content]
   (reagent/create-class
