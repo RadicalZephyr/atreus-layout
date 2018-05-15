@@ -99,10 +99,21 @@
    @(re-frame/subscribe [:modal-content])
    @(re-frame/subscribe [:modal-options])])
 
+(def ^:private
+  extract-event
+  (juxt #(.-key %)
+        #(when (.-altKey %) :lalt)
+        #(when (.-ctrlKey %) :lctrl)
+        #(when (.-metaKey %) :lgui)
+        #(when (.-shiftKey %) :lshift)))
+
+(defn transform-event [key-event]
+  (vec (keep identity (extract-event key-event))))
+
 ;; TODO: still have to implement capturing modifier + key combinations
 (defn character-capture [index]
   [base/register-dom-event js/document "keydown"
-   #(re-frame/dispatch [:set-key index (.-key %)])
+   #(re-frame/dispatch [:set-key index (transform-event %)])
    [:h3 "Press a key"]
    "To assign that key to this button."])
 
