@@ -103,7 +103,7 @@
 (defn main-panel []
   [ant/locale-provider {:locale (ant/locales "en_US")}
    [ant/row {:type "flex" :justify "center"}
-    [ant/col {:span 24}
+    [ant/col {:sm 24 :lg 22 :xl 18}
      [ant/layout
       [modal]
       [header]
