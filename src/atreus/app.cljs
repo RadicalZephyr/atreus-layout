@@ -5,10 +5,16 @@
             [atreus.ui.modal :as modal]
             [atreus.ui.layer :as layer]
             [atreus.compiler :as compiler]
+            [atreus.download :refer [download]]
             [day8.re-frame.tracing :refer-macros [fn-traced]]))
 
 (defn setup! []
   (modal/setup!)
+
+  (re-frame/reg-fx
+   :download-file
+   (fn [[filename content]]
+     (download filename content)))
 
   (re-frame/reg-event-db
    :initialise-db
@@ -27,29 +33,29 @@
     {:db (assoc-in (:db cofx) [:current-layout 0 0 index] (.-key keyevent))
      :dispatch [:close-modal]}))
 
-  (re-frame/reg-event-db
+  (re-frame/reg-event-fx
    :compile-layout
    (fn-traced
-    compile-layout-event [db _]
-    (->> (:current-layout db)
-         compiler/compile
-         (assoc db :compiled-layout))))
+    compile-layout-event [cofx _]
+    (let [content (compiler/compile
+                   (get-in cofx [:db :current-layout]))]
+      {:download-file ["keymap.c" content]})))
 
   ;; Subscriptions
   (re-frame/reg-sub
    :current-layout
    (fn current-layout-sub [db _]
-    (:current-layout db)))
+     (:current-layout db)))
 
   (re-frame/reg-sub
    :layer-index
    (fn layer-index-sub [db _]
-    (:layer-index db)))
+     (:layer-index db)))
 
   (re-frame/reg-sub
    :binding-index
    (fn binding-index-sub [db _]
-    (:binding-index db)))
+     (:binding-index db)))
 
   (re-frame/reg-sub
    :current-bindings
@@ -57,7 +63,7 @@
    :<- [:layer-index]
    :<- [:binding-index]
    (fn binding-sub [[current-layout layer-index binding-index] _]
-    (get-in current-layout [layer-index binding-index]))))
+     (get-in current-layout [layer-index binding-index]))))
 
 (defn modal []
   [modal/modal-root
@@ -77,7 +83,7 @@
    [:div#app-content
     [layer/layer-background
      #(re-frame/dispatch
-        [:open-modal [character-capture %1]])
+       [:open-modal [character-capture %1]])
      @(re-frame/subscribe [:current-bindings])]
     [:input {:type "button"
              :value "Compile!"
