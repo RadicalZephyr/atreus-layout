@@ -162,15 +162,16 @@
     [content]]])
 
 (defn main-panel []
-  [ant/locale-provider {:locale (ant/locales "en_US")}
-   [ant/row {:type "flex" :justify "center"}
-    [ant/col {:sm 24 :lg 22 :xl 18}
-     [ant/layout
-      [modal]
-      [header]
-      [menu
-       @(re-frame/subscribe [:layer-index])
-       @(re-frame/subscribe [:layer-count])]]]]])
+  [:div
+   [modal]
+   [ant/locale-provider {:locale (ant/locales "en_US")}
+    [ant/row {:type "flex" :justify "center"}
+     [ant/col {:sm 24 :lg 22 :xl 18}
+      [ant/layout
+       [header]
+       [menu
+        @(re-frame/subscribe [:layer-index])
+        @(re-frame/subscribe [:layer-count])]]]]]])
 
 (defn init-render! []
   (re-frame/dispatch [:initialise-db])
