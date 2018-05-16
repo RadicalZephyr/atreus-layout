@@ -149,26 +149,25 @@
     @(re-frame/subscribe [:current-bindings])]])
 
 (defn menu [layer-index layer-count]
-  (into
-   [ant/menu {:selected-keys [(str layer-index)]
-              :mode "inline"
-              :on-click #(let [k (.-key %)]
-                           (if (= "add-layer" k)
-                             (re-frame/dispatch [:add-layer])
-                             (re-frame/dispatch [:set-layer-index (js/parseInt k)])))
-              :style {:height "100%"}
-              :theme "dark"}
-    (into
-     [ant/menu-item-group {:class ".layer-header" :title "Layers"}]
+  [ant/menu
+   {:selected-keys [(str layer-index)]
+    :mode "inline"
+    :on-click #(let [k (.-key %)]
+                 (if (= "add-layer" k)
+                   (re-frame/dispatch [:add-layer])
+                   (re-frame/dispatch [:set-layer-index (js/parseInt k)])))
+    :style {:height "100%"}
+    :theme "dark"}
 
-     (for [i (range 0 layer-count)]
-       [ant/menu-item {:key (str i)}
-        (str "Layer " (inc i))]))]
+   [ant/menu-item-group {:class ".layer-header" :title "Layers"}
+    (for [i (range 0 layer-count)]
+      ^{:key i}
+      [ant/menu-item {:key (str i)}
+       (str "Layer " (inc i))])
 
-   (if (>= 31 layer-count)
-     [[ant/menu-item {:key "add-layer"}
-       [:span [ant/icon {:type "plus-circle"}] "Add Layer"]]]
-     [])))
+    (when (>= 31 layer-count)
+      [ant/menu-item {:key "add-layer"}
+       [:span [ant/icon {:type "plus-circle"}] "Add Layer"]])]])
 
 (defn main-body []
   [ant/layout
