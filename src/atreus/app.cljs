@@ -165,7 +165,7 @@
       [ant/menu-item {:key (str i)}
        (str "Layer " (inc i))])
 
-    (when (>= 31 layer-count)
+    (when (> 32 layer-count)
       [ant/menu-item {:key "add-layer"}
        [:span [ant/icon {:type "plus-circle"}] "Add Layer"]])]])
 
