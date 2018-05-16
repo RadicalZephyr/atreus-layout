@@ -110,12 +110,25 @@
 (defn transform-event [key-event]
   (vec (keep identity (extract-event key-event))))
 
+(defn layer-action-button [layer-index]
+  [ant/button {:on-click #()} (str "Layer " (inc layer-index))])
+
 ;; TODO: still have to implement capturing modifier + key combinations
 (defn character-capture [index]
-  [base/register-dom-event js/document "keyup"
-   #(re-frame/dispatch [:set-key index (transform-event %)])
-   [:h3 "Press a key"]
-   "To assign that key to this button."])
+  (let [layer-count (re-frame/subscribe [:layer-count])]
+    (fn [index]
+      [base/register-dom-event js/document "keyup"
+       #(re-frame/dispatch [:set-key index (transform-event %)])
+       [:h3 "Press a key"]
+       [:div
+        "To assign that key to this button."
+        [:br]
+        [:hr]
+        [:br]
+        [:h3 "Assign Another Action"]
+        (for [i (range @layer-count)]
+          ^{:key i}
+          [layer-action-button i])]])))
 
 (defn header []
   [ant/layout-header {:class "banner"}
