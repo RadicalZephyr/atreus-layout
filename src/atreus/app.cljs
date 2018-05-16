@@ -159,7 +159,7 @@
     :style {:height "100%"}
     :theme "dark"}
 
-   [ant/menu-item-group {:class ".layer-header" :title "Layers"}
+   [ant/menu-item-group {:title "Layers"}
     (for [i (range 0 layer-count)]
       ^{:key i}
       [ant/menu-item {:key (str i)}
