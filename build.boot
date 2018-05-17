@@ -29,7 +29,7 @@
                     [devcards "0.2.4" :exclusions
                      [org.clojure/clojurescript]]
                     [radicalzephyr/ring.middleware.logger "0.6.0"
-                     :exclusions [[org.slf4j/slf4j-log4j12 :extension "jar"]]]
+                     :exclusions [org.slf4j/slf4j-log4j12]]
                     [metosin/boot-alt-test "0.3.2"]
                     [adzerk/boot-cljs              "2.1.4"]
                     [adzerk/boot-cljs-repl         "0.3.3"]
@@ -59,6 +59,15 @@
  '[powerlaces.boot-cljs-devtools :refer [cljs-devtools]]
  '[org.martinklepsch.boot-garden :refer [garden]]
  '[samestep.boot-refresh :refer [refresh]])
+
+(task-options!
+ pom {:project     'radicalzephyr/atreus-layout
+      :version     "0.1.0"
+      :description "A GUI for creating layouts for the Atreus keyboard."
+      :url         "https://github.com/radicalzephyr/atreus-layout"
+      :scm         {:url "https://github.com/radicalzephyr/atreus-layout.git"}
+      :license     {"Eclipse Public License"
+                    "http://www.eclipse.org/legal/epl-v10.html"}})
 
 ;; Pipeline configuration tasks
 
