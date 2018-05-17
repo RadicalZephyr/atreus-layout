@@ -3,6 +3,8 @@
 
 (s/def ::character char?)
 
+(s/def ::arrow #{"up" "down" "left" "right"})
+
 (s/def ::function #{"f1" "f2" "f3" "f4" "f5" "f6"
                     "f7" "f8" "f9" "f10" "f11" "f12"})
 
@@ -22,8 +24,10 @@
                               :home :end
                               :page-up :page-down
                               :menu :print-screen
-                              :pause :scroll-lock
-                              :num-lock :caps-lock
+                              :pause :break
+                              :scroll-lock
+                              :num-lock
+                              :caps-lock
                               :power :sleep
                               :wake :mute
                               :volume-up :volume-down
@@ -57,6 +61,7 @@
 
 (s/def :atreus/command (s/or :character           ::character
                              :modifier            ::modifier
+                             :arrow               ::arrow
                              :function            ::function
                              :special-characters  ::special-characters
                              :mouse               ::mouse
