@@ -8,6 +8,8 @@
 (s/def ::function #{"f1" "f2" "f3" "f4" "f5" "f6"
                     "f7" "f8" "f9" "f10" "f11" "f12"})
 
+(s/def ::space #{" "})
+
 (s/def ::modifier #{:lshift :rshift
                     :lctrl :rctrl
                     :lalt :ralt
@@ -59,14 +61,16 @@
 (s/def ::action (s/keys :req #{:action/type}
                         :opt #{:action/index :fn/name :layer/index}))
 
-(s/def :atreus/command (s/or :character           ::character
-                             :modifier            ::modifier
+(s/def :atreus/command (s/or :modifier            ::modifier
                              :arrow               ::arrow
                              :function            ::function
+                             :space               ::space
                              :special-characters  ::special-characters
                              :mouse               ::mouse
                              :composite           ::composite
-                             :action              ::action))
+                             :action              ::action
+                             ;; character is last because it's too broad
+                             :character           ::character))
 
 (defn command? [c]
   (s/valid? :atreus/command c))

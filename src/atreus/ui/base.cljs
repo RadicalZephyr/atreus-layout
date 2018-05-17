@@ -73,6 +73,10 @@
   [binding]
   (subs (name binding) 1))
 
+(defmethod -render-key :space
+  [_]
+  "space")
+
 (defmethod -render-key :special-characters
   [binding]
   (name binding))
