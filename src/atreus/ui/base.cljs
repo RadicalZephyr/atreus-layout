@@ -1,5 +1,6 @@
 (ns atreus.ui.base
   (:require [clojure.string :as str]
+            [clojure.spec.alpha :as s]
             [reagent.core :as reagent]))
 
 (defn- font-size-for [name]
@@ -58,11 +59,55 @@
    [:use {:transform (transform-for rotation)
           :xlinkHref (str "/img/key-sprites.svg#label_" name)}]])
 
+(defmulti -render-key
+  (fn [binding]
+    (let [res (s/conform :atreus/command binding)]
+      (when-not (s/invalid? res)
+        (first res)))))
+
+(defmethod -render-key nil [_] "")
+
+(defmethod -render-key :character
+  [binding]
+  binding)
+
+(defmethod -render-key :modifier
+  [binding]
+  (subs (name binding) 1))
+
+(defmethod -render-key :special-characters
+  [binding]
+  (name binding))
+
+(def ^:private
+  modifiers
+  {:lshift "s"
+   :rshift "s"
+   :lctrl "C"
+   :rctrl "C"
+   :lalt "M"
+   :ralt "M"
+   :lgui "S"
+   :rgui "S"
+   :lsuper "u"
+   :rsuper "u"
+   :lcmd "c"
+   :rcmd "c"})
+
+(defmethod -render-key :composite
+  [binding]
+  (reduce #(str (modifiers %2) "-" %1)
+          (first binding)
+          (rest binding)))
+
+(defn render-key [binding]
+  (-render-key binding))
+
 (defn label
-  ([name]
-   (label name :rotation/none))
-  ([name rotation]
-   (-label (first name) rotation)))
+  ([binding]
+   (label binding :rotation/none))
+  ([binding rotation]
+   (-label (render-key binding) rotation)))
 
 (defn register-dom-event [target event-name on-key-fn & content]
   (reagent/create-class
