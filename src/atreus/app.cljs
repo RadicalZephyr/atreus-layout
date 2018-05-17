@@ -108,7 +108,10 @@
         #(when (.-shiftKey %) :lshift)))
 
 (defn transform-event [key-event]
-  (vec (keep identity (extract-event key-event))))
+  (let [event (vec (keep identity (extract-event key-event)))]
+    (if (= 1 (count event))
+      (first event)
+      event)))
 
 ;; TODO: Create a UI for selecting between momentary layer changes,
 ;; and ON/OFF type layer changes.
