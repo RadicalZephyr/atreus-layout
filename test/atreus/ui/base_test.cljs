@@ -187,7 +187,26 @@
     [sut/label ["a" :lalt]]
     [sut/label ["a" :lgui]]
     [sut/label ["a" :lsuper]]
-    [sut/label ["a" :lcmd]]]])
+    [sut/label ["a" :lcmd]]]
+
+   "Multiple-Composite"
+   [:div
+    [sut/label ["a" :lctrl :lalt]]
+    [sut/label ["a" :lsuper :lgui]]]
+
+   "Action Function"
+   [:div
+    [sut/label {:action/type :fn
+                :fn/name "BOOTLOADER"}]]
+
+   "Layer Change"
+   [:div
+    [sut/label {:action/type :layer/momentary
+                :layer/index 0}]
+    [sut/label {:action/type :layer/on
+                :layer/index 1}]
+    [sut/label {:action/type :layer/off
+                :layer/index 2}]]])
 
 (defcard-rg keyup-capture-card
   (fn [data _]
@@ -239,4 +258,14 @@
   (testing "multiple composite"
     (is (= "C-M-a" (sut/render-key ["a" :lalt :lctrl])))
     (is (= "M-C-a" (sut/render-key ["a" :lctrl :lalt])))
-    (is (= "s-C-c" (sut/render-key ["c" :lctrl :lshift])))))
+    (is (= "s-C-c" (sut/render-key ["c" :lctrl :lshift]))))
+
+  (testing "actions"
+    (is (= "FBOOTLOADER" (sut/render-key {:action/type :fn
+                                          :fn/name "BOOTLOADER"})))
+    (is (= "LM1" (sut/render-key {:action/type :layer/momentary
+                                  :layer/index 0})))
+    (is (= "LON2" (sut/render-key {:action/type :layer/on
+                                   :layer/index 1})))
+    (is (= "LOFF3" (sut/render-key {:action/type :layer/off
+                                    :layer/index 2})))))

@@ -110,8 +110,18 @@
 (defn transform-event [key-event]
   (vec (keep identity (extract-event key-event))))
 
-(defn layer-action-button [layer-index]
-  [ant/button {:on-click #()} (str "Layer " (inc layer-index))])
+;; TODO: Create a UI for selecting between momentary layer changes,
+;; and ON/OFF type layer changes.
+(defn layer-action-button [base-action index layer-index]
+  [ant/button {:on-click #(re-frame/dispatch
+                           [:set-key index (assoc base-action :layer/index layer-index)])}
+   (str "Layer " (inc layer-index))])
+
+(defn layer-action-buttons [base-action layer-count index]
+  [:div
+   (for [i (range @layer-count)]
+     ^{:key i}
+     [layer-action-button base-action index i])])
 
 ;; TODO: still have to implement capturing modifier + key combinations
 (defn character-capture [index]
@@ -122,13 +132,16 @@
        [:h3 "Press a key"]
        [:div
         "To assign that key to this button."
-        [:br]
-        [:hr]
-        [:br]
+        [:br] [:hr] [:br]
         [:h3 "Assign Another Action"]
-        (for [i (range @layer-count)]
-          ^{:key i}
-          [layer-action-button i])]])))
+        [:h5 "Momentary Layer Change"]
+        [layer-action-buttons {:action/type :layer/momentary} layer-count index]
+
+        [:h5 "Turn On Layer"]
+        [layer-action-buttons {:action/type :layer/on} layer-count index]
+
+        [:h5 "Turn Off Layer"]
+        [layer-action-buttons {:action/type :layer/off} layer-count index]]])))
 
 (defn header []
   [ant/layout-header {:class "banner"}

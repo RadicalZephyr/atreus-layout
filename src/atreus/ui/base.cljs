@@ -81,6 +81,14 @@
   [binding]
   (name binding))
 
+(defmethod -render-key :action
+  [binding]
+  (case (:action/type binding)
+    :fn (str "F" (:fn/name binding))
+    :layer/momentary (str "LM" (:fn/name binding) (inc (:layer/index binding)))
+    :layer/off (str "LOFF" (inc (:layer/index binding)))
+    :layer/on (str "LON" (inc (:layer/index binding)))))
+
 (def ^:private
   modifiers
   {:lshift "s"
