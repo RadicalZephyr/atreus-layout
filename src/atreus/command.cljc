@@ -3,6 +3,9 @@
 
 (s/def ::character char?)
 
+(s/def ::function #{"f1" "f2" "f3" "f4" "f5" "f6"
+                    "f7" "f8" "f9" "f10" "f11" "f12"})
+
 (s/def ::modifier #{:lshift :rshift
                     :lctrl :rctrl
                     :lalt :ralt
@@ -54,6 +57,7 @@
 
 (s/def :atreus/command (s/or :character           ::character
                              :modifier            ::modifier
+                             :function            ::function
                              :special-characters  ::special-characters
                              :mouse               ::mouse
                              :composite           ::composite

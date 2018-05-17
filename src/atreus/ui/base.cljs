@@ -65,9 +65,7 @@
       (when-not (s/invalid? res)
         (first res)))))
 
-(defmethod -render-key nil [_] "")
-
-(defmethod -render-key :character
+(defmethod -render-key :default
   [binding]
   binding)
 
