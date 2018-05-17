@@ -199,4 +199,4 @@
 
 (defn dev-reload []
   (re-frame/clear-subscription-cache!)
-  (start!))
+  (setup!))
